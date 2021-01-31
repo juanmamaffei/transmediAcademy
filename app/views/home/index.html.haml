@@ -1,5 +1,14 @@
-%h1 Este es un título de pruebas.
+.fondoGris.full-height
+    .container
+        .cuadroBlanco
+            .content-center.text-center
+                .logo=image_tag "logo_gris.png", width: '300px'
 
-%h2 aaaaa
-
-%p Y este es un párrafo de prueba:LOREM IPSUM.
+            -if user_signed_in?
+                %p.font-2.font-sm.text-gray-900 Bienvenido
+                .botonVerde
+                    =link_to "Cerrar sesión", destroy_user_session_path, method: :delete
+            -else
+                %p.font-2.font-sm.text-gray-900 Iniciá sesión para acceder a los contenidos
+                .botonVerde
+                    =link_to "Iniciar sesión", new_user_session_path
