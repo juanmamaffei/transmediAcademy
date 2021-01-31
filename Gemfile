@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'devise-i18n'
 
+gem "haml-rails", "~> 2.0"
 
 
 
