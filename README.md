@@ -22,3 +22,6 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+https://rubentejera.com/concerns-en-ruby-on-rails/
+
+https://guides.rubyonrails.org/action_text_overview.html

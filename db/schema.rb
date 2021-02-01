@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_083617) do
+ActiveRecord::Schema.define(version: 2021_01_31_225236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chapters", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "goals", default: [], array: true
+    t.bigint "course_id", null: false
+    t.integer "contents", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_chapters_on_course_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "category"
+    t.integer "price"
+    t.string "goals"
+    t.integer "duration"
+    t.text "evaluation"
+    t.boolean "visibility"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "chapters", default: [], array: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +52,5 @@ ActiveRecord::Schema.define(version: 2021_01_31_083617) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chapters", "courses"
 end
