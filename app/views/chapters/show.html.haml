@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @chapter.name
+%p
+  %b Description:
+  = @chapter.description
+%p
+  %b Goals:
+  = @chapter.goals
+%p
+  %b Course:
+  = @chapter.course
+%p
+  %b Contents:
+  = @chapter.contents
+
+= link_to 'Edit', edit_course_chapter_path(@course,@chapter)
+\|
+= link_to 'Back', course_chapters_path

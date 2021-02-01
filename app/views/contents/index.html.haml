@@ -1,0 +1,41 @@
+%h1 Listing contents
+
+%table
+  %thead
+    %tr
+      %th Course
+      %th Chapter
+      %th Name
+      %th Order
+      %th Type
+      %th Richcontent
+      %th Priority
+      %th Testid
+      %th Requirements
+      %th Minimumscore
+      %th Goals
+      %th
+      %th
+      %th
+
+  %tbody
+    - @contents.each do |content|
+      %tr
+        %td= content.course
+        %td= content.chapter
+        %td= content.name
+        %td= content.order
+        %td= content.typeOfContent
+        %td= content.richContent
+        %td= content.priority
+        %td= content.testId
+        %td= content.requirements
+        %td= content.minimumScore
+        %td= content.goals
+        %td= link_to 'Show', content
+        %td= link_to 'Edit', edit_content_path(content)
+        %td= link_to 'Destroy', content, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Content', new_content_path

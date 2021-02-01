@@ -1,0 +1,29 @@
+%h1 Listing chapters
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th Goals
+      %th Course
+      %th Contents
+      %th
+      %th
+      %th
+
+  %tbody
+    - @chapters.each do |chapter|
+      %tr
+        %td= chapter.name
+        %td= chapter.description
+        %td= chapter.goals
+        %td= chapter.course
+        %td= chapter.contents
+        %td= link_to 'Show', course_chapter_path(@course, chapter)
+        %td= link_to 'Edit', edit_course_chapter_path(@course, chapter)
+        %td= link_to 'Destroy', [@course,chapter], method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Chapter', new_course_chapter_path

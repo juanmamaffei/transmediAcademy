@@ -1,0 +1,39 @@
+%p#notice= notice
+
+%p
+  %b Course:
+  = @content.course
+%p
+  %b Chapter:
+  = @content.chapter
+%p
+  %b Name:
+  = @content.name
+%p
+  %b Order:
+  = @content.order
+%p
+  %b Type:
+  = @content.typeOfContent
+%p
+  %b Richcontent:
+  = @content.richContent
+%p
+  %b Priority:
+  = @content.priority
+%p
+  %b Testid:
+  = @content.testId
+%p
+  %b Requirements:
+  = @content.requirements
+%p
+  %b Minimumscore:
+  = @content.minimumScore
+%p
+  %b Goals:
+  = @content.goals
+
+= link_to 'Edit', edit_content_path(@content)
+\|
+= link_to 'Back', contents_path
