@@ -25,3 +25,6 @@ Things you may want to cover:
 https://rubentejera.com/concerns-en-ruby-on-rails/
 
 https://guides.rubyonrails.org/action_text_overview.html
+
+
+https://www.mockaroo.com/ DATA GENERATOR

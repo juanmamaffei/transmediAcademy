@@ -27,6 +27,19 @@
 .botonLargoRojo{
     @apply group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500;
 }
+
+.botonAccion{
+    @apply w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10;
+}
+
+.botonSecundario{
+    @apply w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 md:py-4 md:text-lg md:px-10;
+}
+
+.butMenu{
+    @apply inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white;
+}
+
 .fondoGris{
     @apply bg-gray-100 flex items-center justify-center;
 }
@@ -60,4 +73,9 @@
 
 .logo{
     @apply mx-auto h-12 w-auto;
+}
+
+
+.jumbo{
+    @apply mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28;
 }
