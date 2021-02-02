@@ -1,21 +1,29 @@
-%p#notice= notice
+.min-h-screen{:class=> "bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400"}
+  .container.mx-auto.py-12
 
-%p
-  %b Name:
-  = @chapter.name
-%p
-  %b Description:
-  = @chapter.description
-%p
-  %b Goals:
-  = @chapter.goals
-%p
-  %b Course:
-  = @chapter.course
-%p
-  %b Contents:
-  = @chapter.contents
+    .text-3xl= @chapter.course.name
+    .text-5xl= @chapter.name
+    .text-lg= @chapter.description
+    
+    .text-base Después de este capítulo, podrás:
+    %ul.list-disc
+      %li objetivo 1
+      %li objetivo 2
+      -@chapter.goals.each do |obj|
+        = obj
 
-= link_to 'Edit', edit_course_chapter_path(@course,@chapter)
-\|
-= link_to 'Back', course_chapters_path
+    .text-base Índice de contenidos del capítulo
+    -@contents.each do |content|
+      %a{:href => "#" + content.sequence.to_s}
+        =content.sequence
+        %span |
+        =content.name
+
+
+    = link_to 'Edit', edit_course_chapter_path(@course,@chapter)
+    \|
+    = link_to 'Back', course_chapters_path
+- @contents.each do |content|
+  - @content = content
+  %a{:name => content.sequence}
+  = render template: 'contents/show'

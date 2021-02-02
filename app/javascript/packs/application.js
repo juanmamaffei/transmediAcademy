@@ -14,3 +14,9 @@ ActiveStorage.start()
 
 require("stylesheets/application.scss")
 require("navbar.js")
+require("progress.js")
+
+require("trix")
+require("@rails/actiontext")
+
+

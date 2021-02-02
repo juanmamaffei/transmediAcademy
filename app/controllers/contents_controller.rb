@@ -8,6 +8,9 @@ class ContentsController < ApplicationController
 
   # GET /contents/1 or /contents/1.json
   def show
+    cap = Content.find(params[:id])
+    @course = Course.find(cap.course_id)
+    @chapter = Chapter.find(cap.chapter_id)
   end
 
   # GET /contents/new
@@ -31,7 +34,7 @@ class ContentsController < ApplicationController
 
     respond_to do |format|
       if @content.save
-        format.html { redirect_to @content, notice: "Content was successfully created." }
+        format.html { redirect_to @content, notice: "¡Bien! Acabás de crear flor de contenido." }
         format.json { render :show, status: :created, location: @content }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +47,7 @@ class ContentsController < ApplicationController
   def update
     respond_to do |format|
       if @content.update(content_params)
-        format.html { redirect_to @content, notice: "Content was successfully updated." }
+        format.html { redirect_to @content, notice: "El contenido ya está como a vos te gusta..." }
         format.json { render :show, status: :ok, location: @content }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +60,7 @@ class ContentsController < ApplicationController
   def destroy
     @content.destroy
     respond_to do |format|
-      format.html { redirect_to contents_url, notice: "Content was successfully destroyed." }
+      format.html { redirect_to contents_url, notice: "Borraste un contenido. Bien hecho... no era digno de TransmediAcademy." }
       format.json { head :no_content }
     end
   end
@@ -70,6 +73,6 @@ class ContentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def content_params
-      params.require(:content).permit(:course_id, :chapter_id, :name, :order, :typeOfContent, :richContent, :priority, :testId, :requirements, :minimumScore, :goals)
+      params.require(:content).permit(:course_id, :chapter_id, :name, :sequence, :typeOfContent, :richContent, :priority, :testId, :requirements, :minimumScore, :goals)
     end
 end

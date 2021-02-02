@@ -1,39 +1,83 @@
-%p#notice= notice
+-if @content.typeOfContent == 1
+  %nav{:id => "header", :class => "fixed w-full z-10 top-0"}
+    %div{:id => "progress", :class => "h-1 z-20 top-0", :style => "background:linear-gradient(to right, green var(--scroll), transparent 0)"}
+  %div{:class => "container w-full md:max-w-3xl mx-auto pt-20"}
+    %div{:class => "w-full px-4 md:px-6 text-xl text-gray-800 leading-normal "}
 
-%p
-  %b Course:
-  = @content.course
-%p
-  %b Chapter:
-  = @content.chapter
-%p
-  %b Name:
-  = @content.name
-%p
-  %b Order:
-  = @content.order
-%p
-  %b Type:
-  = @content.typeOfContent
-%p
-  %b Richcontent:
-  = @content.richContent
-%p
-  %b Priority:
-  = @content.priority
-%p
-  %b Testid:
-  = @content.testId
-%p
-  %b Requirements:
-  = @content.requirements
-%p
-  %b Minimumscore:
-  = @content.minimumScore
-%p
-  %b Goals:
-  = @content.goals
+      .text-base.md:text-sm.text-green-500.font-bold
+        %h1{:class => "font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"}
+          = @content.name 
+        %p{:class =>"text-sm md:text-base font-normal text-gray-600"}
+          Pertenece al capítulo
+          %b=@chapter.name
+          del curso
+          %b=@course.name
 
-= link_to 'Edit', edit_content_path(@content)
-\|
-= link_to 'Back', contents_path
+      = @content.richContent
+
+      %hr
+      .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
+        - case @content.priority.to_i
+          -when 1
+            %b Contenido prioritario y correlativo
+            %p Necesario para adquirir los conocimientos básicos del curso y para avanzar al siguiente capítulo.
+          -when 2
+            %b Contenido prioritario
+            %p Es necesario para adquirir los conocimientos básicos del curso, pero podrás avanzar de todos modos sin haberlo navegado por completo. 
+          -when 3
+            %b Contenido complementario
+            %p Podrás saltar este contenido y aún así haber adquirido los conocimientos que se han considerado básicos para el curso. 
+      
+      .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
+        %b Este contenido intenta que puedas:
+        %ul.list-disc
+          -@content.goals.each do |e|
+            %li
+              = e
+      
+      -unless @content.minimumScore == nil
+        .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
+          %b Evaluación
+          %p
+            Para pasar este contenido, necesitás  
+            = @content.minimumScore
+            puntos
+            -unless @content.testId == nil
+              %span , que podrás obtener a través de
+              %a{:href => "/test/"+ @content.testId.to_s, :class => "text-green-800 hover:text-green-400"} esta prueba
+
+      -# Siguiente contenido | Anterior contenido
+%script
+  var h = document.documentElement,
+  b = document.body,
+  st = 'scrollTop',
+  sh = 'scrollHeight',
+  progress = document.querySelector('#progress'),
+  scroll;
+  var scrollpos = window.scrollY;
+  var header = document.getElementById("header");
+  var navcontent = document.getElementById("nav-content");
+
+  document.addEventListener('scroll', function() {
+
+  /*Refresh scroll % width*/
+  scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
+  progress.style.setProperty('--scroll', scroll + '%');
+
+  /*Apply classes for slide in bar*/
+  scrollpos = window.scrollY;
+
+  if (scrollpos > 10) {
+  header.classList.add("bg-white");
+  header.classList.add("shadow");
+  navcontent.classList.remove("bg-gray-100");
+  navcontent.classList.add("bg-white");
+  } else {
+  header.classList.remove("bg-white");
+  header.classList.remove("shadow");
+  navcontent.classList.remove("bg-white");
+  navcontent.classList.add("bg-gray-100");
+
+  }
+
+  });

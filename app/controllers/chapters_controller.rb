@@ -9,6 +9,7 @@ class ChaptersController < ApplicationController
 
   # GET /chapters/1 or /chapters/1.json
   def show
+    @contents = Content.where(course_id: @course.id, chapter_id: @chapter.id).order("sequence ASC, created_at DESC")
   end
 
   # GET /chapters/new

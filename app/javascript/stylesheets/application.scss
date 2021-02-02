@@ -1,6 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "trix/dist/trix";
 
 .full-height{
     min-height: 100vh;
@@ -78,4 +79,8 @@
 
 .jumbo{
     @apply mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28;
+}
+
+trix-toolbar{
+    @apply py-8;
 }
