@@ -73,6 +73,6 @@ class ContentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def content_params
-      params.require(:content).permit(:course_id, :chapter_id, :name, :sequence, :typeOfContent, :richContent, :priority, :testId, :requirements, :minimumScore, :goals)
+      params.require(:content).permit(:course_id, :chapter_id, :name, :sequence, :typeOfContent, :richContent, :priority, :testId, :requirements, :minimumScore, :goals, :embed)
     end
 end

@@ -1,52 +1,69 @@
--if @content.typeOfContent == 1
-  %nav{:id => "header", :class => "fixed w-full z-10 top-0"}
-    %div{:id => "progress", :class => "h-1 z-20 top-0", :style => "background:linear-gradient(to right, green var(--scroll), transparent 0)"}
-  %div{:class => "container w-full md:max-w-3xl mx-auto pt-20"}
-    %div{:class => "w-full px-4 md:px-6 text-xl text-gray-800 leading-normal "}
 
-      .text-base.md:text-sm.text-green-500.font-bold
-        %h1{:class => "font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"}
-          = @content.name 
-        %p{:class =>"text-sm md:text-base font-normal text-gray-600"}
-          Pertenece al capítulo
-          %b=@chapter.name
-          del curso
-          %b=@course.name
+%nav{:id => "header", :class => "fixed w-full z-10 top-0"}
+  %div{:id => "progress", :class => "h-1 z-20 top-0", :style => "background:linear-gradient(to right, green var(--scroll), transparent 0)"}
+%div{:class => "container w-full md:max-w-3xl mx-auto pt-20"}
+  %div{:class => "w-full px-4 md:px-6 text-xl text-gray-800 leading-normal "}
 
-      = @content.richContent
+    .text-base.md:text-sm.text-green-500.font-bold
+      %h1{:class => "font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"}
+        = @content.name 
+      %p{:class =>"text-sm md:text-base font-normal text-gray-600"}
+        Pertenece al capítulo
+        %b=@chapter.name
+        del curso
+        %b=@course.name
+    -case @content.typeOfContent.to_i
+      -when 1
+        -# Texto enriquecido
+        = @content.richContent
+      -when 2
+        -# Video
+        .mx-auto.flex=raw(@content.embed)  
+      -when 3
+        -# Tweet
+        =raw(@content.embed)
+      -when 4
+        -# Post de IG
+        =raw(@content.embed)
+      -when 5
+        -# TikTok
+        =raw(@content.embed)
+      -else
+        -# Contenido desconocido
+        =raw(@content.embed)
 
-      %hr
+    %hr
+    .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
+      - case @content.priority.to_i
+        -when 1
+          %b Contenido prioritario y correlativo
+          %p Necesario para adquirir los conocimientos básicos del curso y para avanzar al siguiente capítulo.
+        -when 2
+          %b Contenido prioritario
+          %p Es necesario para adquirir los conocimientos básicos del curso, pero podrás avanzar de todos modos sin haberlo navegado por completo. 
+        -when 3
+          %b Contenido complementario
+          %p Podrás saltar este contenido y aún así haber adquirido los conocimientos que se han considerado básicos para el curso. 
+    
+    .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
+      %b Después de este contenido deberías ser capaz de:
+      %ul.list-disc
+        -@content.goals.each do |e|
+          %li
+            = e
+    
+    -unless @content.minimumScore == nil
       .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
-        - case @content.priority.to_i
-          -when 1
-            %b Contenido prioritario y correlativo
-            %p Necesario para adquirir los conocimientos básicos del curso y para avanzar al siguiente capítulo.
-          -when 2
-            %b Contenido prioritario
-            %p Es necesario para adquirir los conocimientos básicos del curso, pero podrás avanzar de todos modos sin haberlo navegado por completo. 
-          -when 3
-            %b Contenido complementario
-            %p Podrás saltar este contenido y aún así haber adquirido los conocimientos que se han considerado básicos para el curso. 
-      
-      .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
-        %b Este contenido intenta que puedas:
-        %ul.list-disc
-          -@content.goals.each do |e|
-            %li
-              = e
-      
-      -unless @content.minimumScore == nil
-        .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
-          %b Evaluación
-          %p
-            Para pasar este contenido, necesitás  
-            = @content.minimumScore
-            puntos
-            -unless @content.testId == nil
-              %span , que podrás obtener a través de
-              %a{:href => "/test/"+ @content.testId.to_s, :class => "text-green-800 hover:text-green-400"} esta prueba
+        %b Evaluación
+        %p
+          Para pasar este contenido, necesitás  
+          = @content.minimumScore
+          puntos
+          -unless @content.testId == nil
+            %span , que podrás obtener a través de
+            %a{:href => "/test/"+ @content.testId.to_s, :class => "text-green-800 hover:text-green-400"} esta prueba
 
-      -# Siguiente contenido | Anterior contenido
+    -# Siguiente contenido | Anterior
 %script
   var h = document.documentElement,
   b = document.body,
@@ -70,14 +87,16 @@
   if (scrollpos > 10) {
   header.classList.add("bg-white");
   header.classList.add("shadow");
-  navcontent.classList.remove("bg-gray-100");
-  navcontent.classList.add("bg-white");
+  //navcontent.classList.remove("bg-gray-100");
+  //navcontent.classList.add("bg-white");
   } else {
-  header.classList.remove("bg-white");
+  //header.classList.remove("bg-white");
   header.classList.remove("shadow");
-  navcontent.classList.remove("bg-white");
-  navcontent.classList.add("bg-gray-100");
+  //navcontent.classList.remove("bg-white");
+  //navcontent.classList.add("bg-gray-100");
 
   }
 
   });
+
+  

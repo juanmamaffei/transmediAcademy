@@ -36,6 +36,16 @@
   a{
     color:green;
   }
+  h1{
+    @apply text-3xl text-gray-800;
+  }
+  ul{
+    @apply list-disc;
+  }
+  ol{
+    @apply list-decimal;
+  }
+
 }
 trix-toolbar {
   padding-top: 8px;
