@@ -5,13 +5,14 @@
   %div{:class => "w-full px-4 md:px-6 text-xl text-gray-800 leading-normal "}
 
     .text-base.md:text-sm.text-green-500.font-bold
+      %p{:class =>"text-sm md:text-base font-normal text-gray-600"}
+        =@course.name
+        >>
+        =@chapter.name
       %h1{:class => "font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"}
         = @content.name 
-      %p{:class =>"text-sm md:text-base font-normal text-gray-600"}
-        Pertenece al capítulo
-        %b=@chapter.name
-        del curso
-        %b=@course.name
+      
+        
     -case @content.typeOfContent.to_i
       -when 1
         -# Texto enriquecido

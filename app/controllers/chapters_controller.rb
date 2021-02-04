@@ -68,7 +68,7 @@ class ChaptersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def chapter_params
-      params.require(:chapter).permit(:name, :description, :goals, :course_id, :contents)
+      params.require(:chapter).permit(:name, :description, :goals, :course_id, :sequence)
     end
     def set_course
       @course = Course.find(params[:course_id])

@@ -1,25 +1,33 @@
-%div{:class=> "bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400"}
+.fixed.right-2.bottom-2.z-10.opacity-75
+  .rounded-full.h-12.w-12.flex.items-center.justify-center.bg-green-200.border-2.border-green-400
+    .block-inline
+      .font-bold.text-green-800 100%
+%div{:class=> "bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 flex items-center justify-center"}
+  
   .container.mx-auto.py-12.px-8
     .py-6.text-gray-800
-      .text-3xl.hover:text-green-800= link_to(@chapter.course.name, course_chapters_path(@course))
+      .text-3xl.hover:text-green-800= link_to(@chapter.course.name, course_path(@course))
       .text-5xl= @chapter.name
       .text-lg= @chapter.description
-    .text-base.text-xl.text-gray-800 Después de este capítulo, podrás:
-    %ul.list-disc.px-6.text-gray-800
-      -@chapter.goals.each do |obj|
-        = obj
-    .text-base.text-xl Índice de contenidos del capítulo
+    -unless @chapter.goals == nil
+      .text-base.text-xl.text-gray-800 En este capítulo aprenderás:
+      %ul.list-disc.px-6.text-gray-800
+        -@chapter.goals.each do |obj|
+          = obj
+    .text-base.text-xl.py-4 Contenidos:
     -@contents.each do |content|
-      .text-gray-800.hover:text-green-800
-        %a{:href => "#" + content.sequence.to_s}
-          =content.sequence
-          %span |
-          =content.name
-      -# .absolute.right-0.top-16.hidden.lg-inset-y-0.lg:block{:class=> "lg:w-1/3"}
-      -#  =image_tag "viral.svg", :class => "lg:h-full"
+      %a{:href => "#" + content.sequence.to_s}
+        .py-2.px-4.bg-white.opacity-50.m-2.rounded{:class => "lg:w-1/2"}
+          .text-gray-800.hover:text-green-800
+            
+            =content.sequence
+            %span |
+            =content.name
+    .f-width.text-center
+      =image_tag 'flecha-hacia-abajo.svg', :class => 'w-12 animate-bounce inline-block opacity-50' 
+    -# .absolute.right-0.top-16.hidden.lg-inset-y-0.lg:block{:class=> "lg:w-1/3"}
+    -#  =image_tag "viral.svg", :class => "lg:h-full"
     = link_to 'Edit', edit_course_chapter_path(@course,@chapter)
-    \|
-    = link_to 'Back', course_chapters_path
 - @contents.each do |content|
   - @content = content
   %a{:name => content.sequence}

@@ -1,29 +1,18 @@
-%h1 Listing chapters
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th Goals
-      %th Course
-      %th Contents
-      %th
-      %th
-      %th
-
-  %tbody
+.bg-purple-800
+  %div{:class =>"flex flex-wrap -mx-4 overflow-hidden"}
     - @chapters.each do |chapter|
-      %tr
-        %td= chapter.name
-        %td= chapter.description
-        %td= chapter.goals
-        %td= chapter.course
-        %td= chapter.contents
-        %td= link_to 'Show', course_chapter_path(@course, chapter)
-        %td= link_to 'Edit', edit_course_chapter_path(@course, chapter)
-        %td= link_to 'Destroy', [@course,chapter], method: :delete, data: { confirm: 'Are you sure?' }
+      %div{:class => "my-4 px-4 w-full overflow-hidden md:w-1/2 lg:w-1/3"}
+        .bg-white.m-4.shadow.py-4.px-4.hover:bg-green-200.min-h-full
+          %strong Capitulo 
+          = chapter.sequence
+          %h1.text-3xl.font-1.font-bold= chapter.name
+          %hr.py-2
+          %p.font-2= chapter.description
+          .text-center.py-4.align-text-bottom
+            = link_to 'Entrar', course_chapter_path(@course, chapter), :class=> "py-4 botonVerde"
+            = link_to 'Edit', edit_course_chapter_path(@course, chapter)
+            = link_to 'Destroy', [@course,chapter], method: :delete, data: { confirm: 'Are you sure?' }
 
-%br
+        
 
-= link_to 'New Chapter', new_course_chapter_path
+  =# link_to 'New Chapter', new_course_chapter_path

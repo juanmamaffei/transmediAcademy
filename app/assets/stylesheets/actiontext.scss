@@ -34,16 +34,49 @@
     }
   }
   a{
-    color:green;
+    color: #3730A3;
   }
   h1{
-    @apply text-3xl text-gray-800;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
   }
-  ul{
-    @apply list-disc;
+  
+
+  body {
+    font-family: 'Raleway', sans-serif;
   }
+
   ol{
-    @apply list-decimal;
+    counter-reset: list-counter;
+    list-style: none;
+
+   
+    li:before{
+      content: counter(list-counter);
+      counter-increment: list-counter;
+      font-size: small;
+      font-weight: bold;
+
+      border: none;
+      border-radius: 50% 10%;
+      background-color: #7C3AED;
+      color: white;
+      margin:2px;
+      padding: 3px;
+      margin-right: 4px;
+    }
+  }
+
+  ul{
+    
+    li:before{
+      content: "\2588";
+      font-size: small;
+      color: #7C3AED;
+      margin:2px;
+      padding: 3px;
+      margin-right: 4px;
+    }
   }
 
 }
