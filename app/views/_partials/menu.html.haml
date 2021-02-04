@@ -27,16 +27,17 @@
         .absolute.inset-y-0.right-0.flex.items-center.pr-2.sm:static.sm:inset-auto.sm:ml-6.sm:pr-0
           %button{:id => "campanita", :class => "bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"}
             %span.sr-only Ver notificaciones
-            .h-6.w-6=image_tag "campanita.svg"
+            .h-6.w-6.hidden=image_tag "campanita.svg"
           .ml-3.relative
             %div
               %button{:id => "avatar", :class => "bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white", :id => "user-menu", "aria-haspopup" => "true"}
                 %span.sr-only Abrir menú de usuario
                 =image_tag "extraterrestre.svg", :class=> "bg-white img h-8 w-8 rounded-full"
             %div{:id => "menu_perfil", :class => "origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden", :role => "menu", "aria-orientation" => "vertical", "aria-labelledby" =>"user-menu"}
-              %a.block.px-4.py-2.text-sm.text-gray-700.hover:bg-gray-100{:role => "menuitem"} Mi perfil
-              %a.block.px-4.py-2.text-sm.text-gray-700.hover:bg-gray-100{:role => "menuitem"} Mi perfil
-              %a.block.px-4.py-2.text-sm.text-gray-700.hover:bg-gray-100{:role => "menuitem"} Mi perfil
+              %a.block.px-4.py-2.text-sm.text-gray-700.hover:bg-gray-100{:role => "menuitem", :href => "/courses"} Mis cursos
+              %hr
+              %a.block.px-4.py-2.text-sm.text-gray-700.hover:bg-gray-100{:role => "menuitem", :href => "/users/edit"} Mi perfil
+              =link_to "Cerrar sesión", destroy_user_session_path, :method => :delete, :role => :menuitem, :class => "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
     
     .hidden.sm-hidden{:id => "menu_avatar"}
       -if @contents
@@ -46,7 +47,5 @@
               =content.sequence
               %span |
               =content.name
-%div
-  %p PLACEHOLDER
-  %p PLACEHOLDER
-  %p PLACEHOLDER
+  %div
+    %p.py-5 Si me ves, sos un(a) crack ;-)
