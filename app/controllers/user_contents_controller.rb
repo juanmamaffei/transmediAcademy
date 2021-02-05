@@ -10,6 +10,7 @@ class UserContentsController < ApplicationController
 
   # GET /user_contents/1 or /user_contents/1.json
   def show
+    
   end
 
   # GET /user_contents/new
@@ -24,7 +25,7 @@ class UserContentsController < ApplicationController
   # POST /user_contents or /user_contents.json
   def create
     @user_content = UserContent.new(user_content_params)
-    @user_content.user_id = params[:user_content][:user]
+    @user_content.user_id = current_user.id
     @user_content.content_id = @content.id
 
 
@@ -77,4 +78,5 @@ class UserContentsController < ApplicationController
     def set_user
       #@user = User.find(params[:session_id])
     end
+
 end

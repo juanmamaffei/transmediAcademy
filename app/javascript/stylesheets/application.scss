@@ -84,3 +84,56 @@
 trix-toolbar{
     @apply py-8;
 }
+
+.md{
+    h1{
+        @apply text-5xl font-1;
+    }
+    h2{
+        @apply text-4xl font-1;
+    }
+    h3{
+        @apply text-3xl font-1;
+    }
+    h4{
+        @apply text-2xl font-1;
+    }
+    a{
+        color: #3730A3;
+      }
+      ol{
+        counter-reset: list-counter;
+        list-style: none;
+    
+       
+        li:before{
+          content: counter(list-counter);
+          counter-increment: list-counter;
+          font-size: small;
+          font-weight: bold;
+    
+          border: none;
+          border-radius: 50% 10%;
+          background-color: #7C3AED;
+          color: white;
+          margin:2px;
+          padding: 3px;
+          margin-right: 4px;
+        }
+      }
+    
+      ul{
+        
+        li:before{
+          content: "\2588";
+          font-size: small;
+          color: #7C3AED;
+          margin:2px;
+          padding: 3px;
+          margin-right: 4px;
+        }
+      }
+    p{
+        @apply text-base font-2;
+    }
+}

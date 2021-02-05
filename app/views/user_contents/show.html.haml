@@ -2,7 +2,8 @@
 
 %p
   %b Markdowncontent:
-  = @user_content.markdownContent
+-markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+.md= raw(markdown.render(@user_content.markdownContent))
 %p
   %b Type:
   = @user_content.content_type
