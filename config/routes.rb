@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
-  resources :contents
+  resources :contents do
+    resources :user_contents
+  end
+  
   resources :courses do
     resources :chapters
   end

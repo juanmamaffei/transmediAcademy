@@ -1,0 +1,28 @@
+= form_for [@content,@user_content] do |f|
+  - if @user_content.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user_content.errors.count, "error")} prohibited this user_content from being saved:"
+      %ul
+        - @user_content.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :markdownContent
+    = f.text_area :markdownContent
+  .field
+    = f.label :type
+    = f.number_field :content_type
+  .field
+    = f.label :sticked
+    = f.text_field :sticked
+  .field
+    = f.label :claps
+    = f.text_field :claps
+  .field
+    = f.label :responseTo
+    = f.text_field :responseTo
+  .field
+    = f.label :user
+    = f.text_field :user
+  .actions
+    = f.submit 'Save'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_071357) do
+ActiveRecord::Schema.define(version: 2021_02_05_193043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,20 @@ ActiveRecord::Schema.define(version: 2021_02_03_071357) do
     t.integer "chapters", default: [], array: true
   end
 
+  create_table "user_contents", force: :cascade do |t|
+    t.text "markdownContent"
+    t.string "sticked"
+    t.string "claps"
+    t.string "responseTo"
+    t.bigint "user_id", null: false
+    t.bigint "content_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "content_type"
+    t.index ["content_id"], name: "index_user_contents_on_content_id"
+    t.index ["user_id"], name: "index_user_contents_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -114,4 +128,6 @@ ActiveRecord::Schema.define(version: 2021_02_03_071357) do
   add_foreign_key "chapters", "courses"
   add_foreign_key "contents", "chapters"
   add_foreign_key "contents", "courses"
+  add_foreign_key "user_contents", "contents"
+  add_foreign_key "user_contents", "users"
 end

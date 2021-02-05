@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  markdownContent: MyText
+  type: 1
+  sticked: MyString
+  claps: MyString
+  responseTo: MyString
+  user: one
+  content: one
+
+two:
+  markdownContent: MyText
+  type: 1
+  sticked: MyString
+  claps: MyString
+  responseTo: MyString
+  user: two
+  content: two
