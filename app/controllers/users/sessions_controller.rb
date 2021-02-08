@@ -19,7 +19,10 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # protected
-
+  private
+  def user_params
+    params.require(:user).permit(:avatar)
+  end
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
