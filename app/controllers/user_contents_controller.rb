@@ -31,7 +31,7 @@ class UserContentsController < ApplicationController
 
     respond_to do |format|
       if @user_content.save
-        format.html { redirect_to content_user_contents_path, notice: "User content was successfully created." }
+        format.html { redirect_to content_user_contents_path, notice: "¡Bien ahí! Acabás de crear un contenido, crack." }
         format.json { render :show, status: :created, location: @user_content }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class UserContentsController < ApplicationController
   def update
     respond_to do |format|
       if @user_content.update(user_content_params)
-        format.html { redirect_to content_user_contents_path, notice: "User content was successfully updated." }
+        format.html { redirect_to content_user_contents_path, notice: "Ya cambiamos el contenido, tal como lo pediste." }
         format.json { render :show, status: :ok, location: @user_content }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class UserContentsController < ApplicationController
   def destroy
     @user_content.destroy
     respond_to do |format|
-      format.html { redirect_to content_user_contents_path, notice: "User content was successfully destroyed." }
+      format.html { redirect_to content_user_contents_path, notice: "Ya borramos el contenido." }
       format.json { head :no_content }
     end
   end

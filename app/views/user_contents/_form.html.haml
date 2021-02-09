@@ -1,28 +1,27 @@
 = form_for [@content,@user_content] do |f|
-  - if @user_content.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@user_content.errors.count, "error")} prohibited this user_content from being saved:"
-      %ul
-        - @user_content.errors.full_messages.each do |message|
-          %li= message
+  .bg-gray-200.p-4.h-screen
+    .bg-white.rounded-xl.m-6.p-6.md:container.mx-auto
+      %p.m-2
+        - flecha= inline_svg_tag "arrow.svg", class: 'h-8 inline-block svgVioleta'
+        = link_to flecha, :back
+      =image_tag current_user.avatar, :class => "float-left w-12 h-12 rounded-full m-2"
+      =f.text_area :markdownContent, :class => "p-4 w-5/6 h-40 text-2xl font-2 resize-y lg:h-80", :placeholder => "¿Cuál es tu aporte?"
 
-  .field
-    = f.label :markdownContent
-    = f.text_area :markdownContent
-  .field
-    = f.label :type
-    = f.number_field :content_type
-  .field
-    = f.label :sticked
-    = f.text_field :sticked
-  .field
-    = f.label :claps
-    = f.text_field :claps
-  .field
-    = f.label :responseTo
-    = f.text_field :responseTo
-  .field
-    = f.label :user
-    = f.text_field :user
-  .actions
-    = f.submit 'Save'
+      = f.select :content_type, options_for_select([['Duda (será respondida)', 1], ['Aporte', 2]]), :class => "bg-black rounded m-4"
+
+      =# Este label va sólo si el usuario tiene permisos de edición en el curso
+      %label
+        = f.check_box :sticked
+        Fijado 
+      .text-right
+        =f.submit 'Publicar', :class => 'botonVerde'
+        
+
+
+
+    - if @user_content.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@user_content.errors.count, "error")} prohibited this user_content from being saved:"
+        %ul
+          - @user_content.errors.full_messages.each do |message|
+            %li= message

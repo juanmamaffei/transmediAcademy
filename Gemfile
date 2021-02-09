@@ -35,6 +35,8 @@ gem 'image_processing', '~> 1.2'
 gem 'redcarpet'
 # gem 'paperclip' Paperclip is fcking deprecated
 
+gem 'inline_svg'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 

@@ -4,10 +4,12 @@
       En respuesta a 
       = user_content.responseTo
     - if user_content.content_type == 1
-      -markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-      .md= raw(markdown.render(user_content.markdownContent))
-    - else #ver qué tipos de contenido existen y personalizar el render
-      = user_content.markdownContent
+      Duda
+    -else
+      Aporte
+    -markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+    .md= raw(markdown.render(user_content.markdownContent))
+  
     .claps
       Aplausos: 
       = user_content.claps

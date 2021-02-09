@@ -6,6 +6,10 @@
 .full-height{
     min-height: 100vh;
 }
+.tres-cuartos-height{
+    height: 75vh;
+}
+
 .font-1{
     font-family: 'Open Sans', sans-serif;
 
@@ -137,3 +141,13 @@ trix-toolbar{
         @apply text-base font-2;
     }
 }
+
+.svgVioleta {
+    fill:rgba(52, 211, 153);
+  }
+  .svgVioleta:hover {
+    fill: rgba(76, 29, 149);
+  }
+  
+  
+  
