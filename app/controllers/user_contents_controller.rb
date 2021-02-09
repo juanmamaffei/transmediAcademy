@@ -5,7 +5,7 @@ class UserContentsController < ApplicationController
 
   # GET /user_contents or /user_contents.json
   def index
-    @user_contents = UserContent.all
+    @user_contents = UserContent.where(content_id: @content)
   end
 
   # GET /user_contents/1 or /user_contents/1.json

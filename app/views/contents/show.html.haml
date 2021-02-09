@@ -32,7 +32,9 @@
       -else
         -# Contenido desconocido
         =raw(@content.embed)
-
+    %hr
+    .m-2.bg-gray-50.shadow.py-2.px-6
+      = link_to "Contenido creado por los usuarios", content_user_contents_path(@content.id)
     %hr
     .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
       - case @content.priority.to_i
@@ -63,6 +65,8 @@
           -unless @content.testId == nil
             %span , que podrás obtener a través de
             %a{:href => "/test/"+ @content.testId.to_s, :class => "text-green-800 hover:text-green-400"} esta prueba
+      
+    
 
     -# Siguiente contenido | Anterior
 %script
