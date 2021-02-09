@@ -1,29 +1,39 @@
-- @user_contents.each do |user_content|
-  .container.bg-gray-50.m-4.p-4
-    - if user_content.responseTo?
-      En respuesta a 
-      = user_content.responseTo
-    - if user_content.content_type == 1
-      Duda
+.bg-gray-200.min-h-screen.overflow-hidden
+  .container.mx-auto.py-4
+    .mx-4.text-center= link_to 'Crear contenido', new_content_user_content_path(@content), :class => "botonLargo"
+
+    - if @user_contents.length == 0
+      .py-6
+        .text-2xl.font-2 ¡Epa! Parece que todavía nadie se animó a colaborar.
+        .text-3xl= link_to 'Sé el primero.', new_content_user_content_path(@content)
     -else
-      Aporte
-    -markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-    .md= raw(markdown.render(user_content.markdownContent))
-  
-    .claps
-      Aplausos: 
-      = user_content.claps
-    - if user_content.sticked == true
-      .sticked CONTENIDO FIJADO
-    .author
-      Creado por:
-      = user_content.user
-    .bg-gray-200
-      = link_to 'Show', content_user_content_path(@content, user_content)
-      = link_to 'Edit', edit_content_user_content_path(@content,user_content)
-      = link_to 'Destroy', [@content,user_content], method: :delete, data: { confirm: 'Are you sure?' }
+      Cantidad de aportes de la comunidad:
+      =@user_contents.length
+
+    - @user_contents.each do |user_content|
+      .bg-white.m-2.p-4.rounded-xl
+        - if user_content.responseTo?
+          En respuesta a 
+          = user_content.responseTo
+        - if user_content.content_type == 1
+          Duda de
+          = user_content.user
+        -else
+          Aporte de 
+          = user_content.user
+        -markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+        .md= raw(markdown.render(user_content.markdownContent))
+      
+        .claps
+          Aplausos: 
+          = user_content.claps
+        - if user_content.sticked == true
+          .sticked CONTENIDO FIJADO
+
+        .bg-gray-200
+          = link_to 'Show', content_user_content_path(@content, user_content)
+          = link_to 'Edit', edit_content_user_content_path(@content,user_content)
+          = link_to 'Destroy', [@content,user_content], method: :delete, data: { confirm: 'Are you sure?' }
 
 
 
-
-= link_to 'New User content', new_content_user_content_path(@content)

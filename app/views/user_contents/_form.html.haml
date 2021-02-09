@@ -5,14 +5,16 @@
         - flecha= inline_svg_tag "arrow.svg", class: 'h-8 inline-block svgVioleta'
         = link_to flecha, :back
       =image_tag current_user.avatar, :class => "float-left w-12 h-12 rounded-full m-2"
-      =f.text_area :markdownContent, :class => "p-4 w-5/6 h-40 text-2xl font-2 resize-y lg:h-80", :placeholder => "¿Cuál es tu aporte?"
+      =f.text_area :markdownContent, :class => "p-4 w-full h-40 text-2xl font-2 resize-y lg:h-80 md:w-5/6", :placeholder => "¿Cuál es tu aporte?"
 
-      = f.select :content_type, options_for_select([['Duda (será respondida)', 1], ['Aporte', 2]]), :class => "bg-black rounded m-4"
-
-      =# Este label va sólo si el usuario tiene permisos de edición en el curso
-      %label
-        = f.check_box :sticked
-        Fijado 
+      .inline-grid.grid-cols-2.gap-x-4
+        %span
+          = f.select :content_type, options_for_select([['Duda (será respondida)', 1], ['Aporte', 2]]), {}, :class => "rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 bg-white text-lg font-1"
+        %span
+          =# Este label va sólo si el usuario tiene permisos de edición en el curso
+          %label.text-lg.font-1
+            = f.check_box :sticked
+            Fijado 
       .text-right
         =f.submit 'Publicar', :class => 'botonVerde'
         
