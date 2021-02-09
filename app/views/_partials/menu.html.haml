@@ -32,7 +32,10 @@
             %div
               %button{:id => "avatar", :class => "bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white", :id => "user-menu", "aria-haspopup" => "true"}
                 %span.sr-only Abrir menú de usuario
-                =image_tag "extraterrestre.svg", :class=> "bg-white img h-8 w-8 rounded-full"
+                -if @user.avatar.attached?        
+                  = image_tag @user.avatar, :class => "bg-white img w-8 h-8 rounded-full"
+                -else
+                  =image_tag "extraterrestre.svg", :class=> "bg-white img w-8 h-8 rounded-full"
             %div{:id => "menu_perfil", :class => "origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden", :role => "menu", "aria-orientation" => "vertical", "aria-labelledby" =>"user-menu"}
               %a.block.px-4.py-2.text-sm.text-gray-700.hover:bg-gray-100{:role => "menuitem", :href => "/courses"} Mis cursos
               %hr
