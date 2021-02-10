@@ -1,8 +1,9 @@
 class ContentsController < ApplicationController
   before_action :set_content, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  before_action :set_course
-  before_action :check_permissions, except: %i[index]
+  before_action :set_course, except: %i[ index ]
+  before_action :check_permissions, except: %i[ index ]
+  before_action :check_god, only: %i[index]
 
   # GET /contents or /contents.json
   def index
@@ -140,5 +141,17 @@ class ContentsController < ApplicationController
       else
         @permissions = matricula.permissions
       end
+    end
+
+    def check_god
+      
+      unless current_user.permissions == nil
+        unless current_user.permissions >= 50
+          redirect_to root_path, notice: "Naaa. Estás re loco vo, amigo."
+        end
+      else
+          redirect_to root_path, notice: "Pfff... Tomate el palo..."
+      end
+    
     end
 end

@@ -5,6 +5,8 @@ class CoursesController < ApplicationController
 
   before_action :check_permissions, except: %i[index]
 
+  before_action :check_god, only: %i[new create]
+
   # GET /courses or /courses.json
   def index
     @courses = Course.all
@@ -107,5 +109,18 @@ class CoursesController < ApplicationController
         @permissions = matricula.permissions
       end
     end
+
+    def check_god
+      
+      unless current_user.permissions == nil
+        unless current_user.permissions >= 50
+          redirect_to root_path, notice: "Naaa. Estás re loco vo, amigo."
+        end
+      else
+          redirect_to root_path, notice: "Pfff... Tomate el palo..."
+      end
+    
+    end
+    
     
 end

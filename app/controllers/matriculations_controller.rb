@@ -2,6 +2,8 @@ class MatriculationsController < ApplicationController
   before_action :set_matriculation, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
 
+  before_action :check_god
+
   # GET /matriculations or /matriculations.json
   def index
     @matriculations = Matriculation.all
@@ -68,5 +70,17 @@ class MatriculationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def matriculation_params
       params.require(:matriculation).permit(:user_id, :course_id, :permissions)
+    end
+
+    def check_god
+      
+      unless current_user.permissions == nil
+        unless current_user.permissions >= 50
+          redirect_to root_path, notice: "Naaa. Estás re loco vo, amigo."
+        end
+      else
+          redirect_to root_path, notice: "Pfff... Tomate el palo..."
+      end
+    
     end
 end
