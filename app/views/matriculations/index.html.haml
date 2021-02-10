@@ -4,6 +4,7 @@
   %thead
     %tr
       %th User
+      %th User email
       %th Course
       %th Permissions
       %th
@@ -13,8 +14,9 @@
   %tbody
     - @matriculations.each do |matriculation|
       %tr
-        %td= matriculation.user
-        %td= matriculation.course
+        %td= matriculation.user.id
+        %td= matriculation.user.email
+        %td= matriculation.course.id
         %td= matriculation.permissions
         %td= link_to 'Show', matriculation
         %td= link_to 'Edit', edit_matriculation_path(matriculation)

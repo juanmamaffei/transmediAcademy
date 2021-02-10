@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   
   before_action :authenticate_user!, except: %i[index]
 
-  before_action :check_permissions, except: %i[index]
+  before_action :check_permissions, except: %i[index mycourses]
 
   before_action :check_god, only: %i[new create]
 
@@ -11,7 +11,13 @@ class CoursesController < ApplicationController
   def index
     @courses = Course.all
   end
+  def mycourses
+    
+    @miscursos = Matriculation.where("user_id = ?", current_user.id).select(:course_id)
+    @courses = Course.where({ id: @miscursos})
 
+
+  end
   # GET /courses/1 or /courses/1.json
   def show
     # Sólo acceden los estudiantes
