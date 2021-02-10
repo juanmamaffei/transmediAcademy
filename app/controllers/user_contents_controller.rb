@@ -1,8 +1,8 @@
 class UserContentsController < ApplicationController
   before_action :set_user_content, only: %i[ show edit update destroy ]
   before_action :set_content
-  before_action :set_user
   before_action :authenticate_user!
+  before_action :check_owner, only: %i[ edit update destroy]
 
   # GET /user_contents or /user_contents.json
   def index
@@ -76,8 +76,12 @@ class UserContentsController < ApplicationController
     def set_content
       @content = Content.find(params[:content_id])
     end
-    def set_user
-      #@user = User.find(params[:session_id])
+
+    def check_owner
+      unless @user_content.user == current_user
+        redirect_to root_path, notice: "No estás autorizado a hacer eso."
+      end
     end
+    
 
 end
