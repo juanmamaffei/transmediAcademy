@@ -1,39 +1,54 @@
 .bg-gray-200.min-h-screen.overflow-hidden
   .container.mx-auto.py-4
-    .mx-4.text-center= link_to 'Crear contenido', new_content_user_content_path(@content), :class => "botonLargo"
-
-    - if @user_contents.length == 0
-      .py-6
-        .text-2xl.font-2 ¡Epa! Parece que todavía nadie se animó a colaborar.
+    .mx-4.text-center
+     
+      - flecha= inline_svg_tag "arrow.svg", class: 'h-8 inline-block svgVioleta'
+      .float-left= link_to flecha, content_path(@content)
+      = link_to 'Crear contenido', new_content_user_content_path(@content), :class => "botonVerde"
+    .py-6.font-2
+      - if @user_contents.length == 0
+        .text-2xl ¡Epa! Parece que todavía nadie se animó a colaborar.
         .text-3xl= link_to 'Sé el primero.', new_content_user_content_path(@content)
-    -else
-      Cantidad de aportes de la comunidad:
-      =@user_contents.length
+      -else
+        -#Cantidad de aportes de la comunidad:
+        =#@user_contents.length
 
     - @user_contents.each do |user_content|
       .bg-white.m-2.p-4.rounded-xl
         - if user_content.responseTo?
           En respuesta a 
           = user_content.responseTo
-        - if user_content.content_type == 1
-          Duda de
-          = user_content.user
+        -case user_content.content_type
+          -when 1
+            Duda de
+          -when 2
+            Aporte de 
+          -else
+            Algo que dijo
+
+        -unless user_content.user.name == nil
+          = user_content.user.name
         -else
-          Aporte de 
-          = user_content.user
+          = user_content.user.email
         -markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
         .md= raw(markdown.render(user_content.markdownContent))
       
-        .claps
-          Aplausos: 
-          = user_content.claps
+        .grid.grid-cols-3
+          %div
+            %span= inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgVioleta' 
+            -unless user_content.claps == nil
+              %span.font-1= user_content.claps
+            -else
+              %span.font-1 0
+          -if current_user == user_content.user
+            %div.text-center= link_to 'Editar', edit_content_user_content_path(@content,user_content), :class => "botonVerde"
+            %div.text-right= link_to 'Borrar', [@content,user_content], method: :delete, data: { confirm: '¿Estás seguro que querés borrar esto?' }, :class => "botonRojo"
+
         - if user_content.sticked == true
           .sticked CONTENIDO FIJADO
 
-        .bg-gray-200
-          = link_to 'Show', content_user_content_path(@content, user_content)
-          = link_to 'Edit', edit_content_user_content_path(@content,user_content)
-          = link_to 'Destroy', [@content,user_content], method: :delete, data: { confirm: 'Are you sure?' }
+
+          =# link_to 'Show', content_user_content_path(@content, user_content)
 
 
 
