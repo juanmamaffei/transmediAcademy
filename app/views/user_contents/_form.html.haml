@@ -4,7 +4,11 @@
       %p.m-2
         - flecha= inline_svg_tag "arrow.svg", class: 'h-8 inline-block svgVioleta'
         = link_to flecha, :back
-      =image_tag current_user.avatar, :class => "float-left w-12 h-12 rounded-full m-2"
+      -if current_user.avatar.attached?        
+        =image_tag current_user.avatar, :class => "float-left w-12 h-12 rounded-full m-2"
+      -else
+        =image_tag "extraterrestre.svg", :class=> "float-left w-12 h-12 rounded-full m-2"
+        
       =f.text_area :markdownContent, :class => "p-4 w-full h-40 text-2xl font-2 resize-y lg:h-80 md:w-5/6", :placeholder => "¿Cuál es tu aporte?"
 
       .inline-grid.grid-cols-2.gap-x-4

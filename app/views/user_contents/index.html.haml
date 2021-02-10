@@ -18,6 +18,10 @@
         - if user_content.responseTo?
           En respuesta a 
           = user_content.responseTo
+        -if user_content.user.avatar.attached?        
+          = image_tag user_content.user.avatar, :class => "bg-white img w-8 h-8 rounded-full inline-block mx-2"
+        -else
+          =image_tag "extraterrestre.svg", :class=> "bg-white img w-8 h-8 rounded-full inline-block mx-2"
         -case user_content.content_type
           -when 1
             Duda de

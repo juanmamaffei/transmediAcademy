@@ -10,6 +10,10 @@
           %br/
           = f.email_field :email, autofocus: true, autocomplete: "email", :class => 'textBox', placeholder: "E-mail"
         .field
+          = f.label :nombre
+          %br/
+          = f.text_field :name, :class => 'textBox', placeholder: "Tu nombre"
+        .field
           = f.label :password, :class => "sr-only"
           - if @minimum_password_length
             %em= t('devise.shared.minimum_password_length', count: @minimum_password_length)

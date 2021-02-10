@@ -11,6 +11,13 @@
         .field
           %em Cambiar foto de perfil
           = f.file_field :avatar
+        
+        .field
+          = f.label :nombre
+          %br/
+          %em Nombre
+          = f.text_field :name, :class => 'textBox', placeholder: "Tu nombre"
+
         .field
           = f.label :email
           %br/
