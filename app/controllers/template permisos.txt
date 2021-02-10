@@ -1,0 +1,30 @@
+    # Sólo acceden los alumnos
+    if @permissions >= 10
+        #Lo que se puede hacer
+    else
+        #Redirigir
+        redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
+    end
+
+    # Sólo acceden los tutores
+    if @permissions >= 20
+        #Lo que se puede hacer
+    else
+        #Redirigir
+        redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
+    end
+
+    # Sólo acceden los administradores
+    if @permissions >= 30
+        #Lo que se puede hacer
+    else
+        #Redirigir
+        redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
+    end
+
+
+
+    # Sólo acceden los tutores
+    unless @permissions >= 20
+        redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
+    end

@@ -2,6 +2,7 @@ class UserContentsController < ApplicationController
   before_action :set_user_content, only: %i[ show edit update destroy ]
   before_action :set_content
   before_action :set_user
+  before_action :authenticate_user!
 
   # GET /user_contents or /user_contents.json
   def index

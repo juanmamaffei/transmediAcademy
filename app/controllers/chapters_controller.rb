@@ -1,6 +1,7 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter, only: %i[ show edit update destroy ]
   before_action :set_course
+  before_action :authenticate_user!
 
   # GET /chapters or /chapters.json
   def index

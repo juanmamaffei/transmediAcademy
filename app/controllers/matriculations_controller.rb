@@ -1,5 +1,6 @@
 class MatriculationsController < ApplicationController
   before_action :set_matriculation, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /matriculations or /matriculations.json
   def index
@@ -22,6 +23,8 @@ class MatriculationsController < ApplicationController
   # POST /matriculations or /matriculations.json
   def create
     @matriculation = Matriculation.new(matriculation_params)
+    @matriculation.user_id = params[:matriculation][:user]
+    @matriculation.course_id = params[:matriculation][:course]
 
     respond_to do |format|
       if @matriculation.save
