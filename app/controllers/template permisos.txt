@@ -28,3 +28,17 @@
     unless @permissions >= 20
         redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
     end
+
+
+
+    before_action :check_permissions
+
+    def check_permissions
+        matricula = Matriculation.find_by(user: current_user, course: @course)
+  
+        if matricula == nil
+          @permissions = 0
+        else
+          @permissions = matricula.permissions
+        end
+    end
