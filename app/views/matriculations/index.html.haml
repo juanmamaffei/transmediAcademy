@@ -1,0 +1,25 @@
+%h1 Listing matriculations
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Course
+      %th Permissions
+      %th
+      %th
+      %th
+
+  %tbody
+    - @matriculations.each do |matriculation|
+      %tr
+        %td= matriculation.user
+        %td= matriculation.course
+        %td= matriculation.permissions
+        %td= link_to 'Show', matriculation
+        %td= link_to 'Edit', edit_matriculation_path(matriculation)
+        %td= link_to 'Destroy', matriculation, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Matriculation', new_matriculation_path

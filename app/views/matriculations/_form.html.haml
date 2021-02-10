@@ -1,0 +1,19 @@
+= form_for @matriculation do |f|
+  - if @matriculation.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@matriculation.errors.count, "error")} prohibited this matriculation from being saved:"
+      %ul
+        - @matriculation.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :course
+    = f.text_field :course
+  .field
+    = f.label :permissions
+    = f.number_field :permissions
+  .actions
+    = f.submit 'Save'

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :matriculations
   resources :contents do
     resources :user_contents
   end

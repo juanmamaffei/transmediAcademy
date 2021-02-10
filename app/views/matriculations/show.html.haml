@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @matriculation.user
+%p
+  %b Course:
+  = @matriculation.course
+%p
+  %b Permissions:
+  = @matriculation.permissions
+
+= link_to 'Edit', edit_matriculation_path(@matriculation)
+\|
+= link_to 'Back', matriculations_path
