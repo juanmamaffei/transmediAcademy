@@ -66,7 +66,7 @@ class ChaptersController < ApplicationController
   
       respond_to do |format|
         if @chapter.save
-          format.html { redirect_to @chapter.course, notice: "Chapter was successfully created." }
+          format.html { redirect_to @chapter.course, notice: "¡Bien! Acabás de crear un nuevo capítulo." }
           format.json { render :show, status: :created, location: @chapter }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -86,7 +86,7 @@ class ChaptersController < ApplicationController
     if @permissions >= 20
       respond_to do |format|
         if @chapter.update(chapter_params)
-          format.html { redirect_to @chapter.course, notice: "Chapter was successfully updated." }
+          format.html { redirect_to @chapter.course, notice: "Actualizamos tu capítulo, justo como querías." }
           format.json { render :show, status: :ok, location: @chapter }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -108,7 +108,7 @@ class ChaptersController < ApplicationController
     if @permissions >= 20
       @chapter.destroy
       respond_to do |format|
-        format.html { redirect_to course_chapters_url, notice: "Chapter was successfully destroyed." }
+        format.html { redirect_to course_chapters_url, notice: "Eliminaste un capítulo." }
         format.json { head :no_content }
       end
     else

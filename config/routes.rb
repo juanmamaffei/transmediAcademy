@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   
   resources :matriculations
   resources :contents do
-    resources :user_contents
+    resources :user_contents do
+      member do
+        put "like" => "user_contents#like"
+      end
+    end
   end
   
   resources :courses do

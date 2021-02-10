@@ -4,9 +4,11 @@ class UserContentsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_owner, only: %i[ edit update destroy]
 
+  respond_to :js, :html, :json
+
   # GET /user_contents or /user_contents.json
   def index
-    @user_contents = UserContent.where(content_id: @content)
+    @user_contents = UserContent.where(content_id: @content).order(created_at: :desc)
   end
 
   # GET /user_contents/1 or /user_contents/1.json
@@ -62,7 +64,15 @@ class UserContentsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def like
+    @user_content = UserContent.find(params[:id])
+    if params[:format] == 'like'
+      @user_content.liked_by current_user
+    elsif params[:format] == 'unlike'
+      @user_content.unliked_by current_user
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_content
