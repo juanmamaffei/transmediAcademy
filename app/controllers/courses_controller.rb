@@ -13,8 +13,8 @@ class CoursesController < ApplicationController
   end
   def mycourses
     
-    @miscursos = Matriculation.where("user_id = ?", current_user.id).select(:course_id)
-    @courses = Course.where({ id: @miscursos})
+    miscursos = Matriculation.where("user_id = ?", current_user.id).select(:course_id)
+    @courses = Course.where({ id: miscursos})
 
 
   end
