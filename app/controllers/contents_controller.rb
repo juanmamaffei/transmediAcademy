@@ -1,8 +1,8 @@
 class ContentsController < ApplicationController
   before_action :set_content, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  before_action :set_course, except: %i[ index ]
-  before_action :check_permissions, except: %i[ index ]
+  before_action :set_course, except: %i[ index new create]
+  before_action :check_permissions, except: %i[ index new ]
   before_action :check_god, only: %i[index]
 
   # GET /contents or /contents.json
@@ -29,12 +29,12 @@ class ContentsController < ApplicationController
   # GET /contents/new
   def new
     # Sólo acceden los tutores
-    if @permissions >= 20
+    #if @permissions >= 20
       @content = Content.new
-  else
+    #else
       #Redirigir
-      redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
-  end
+    #  redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
+    #end
 
 
   end
@@ -52,7 +52,7 @@ class ContentsController < ApplicationController
   def create
     
     # Sólo acceden los tutores
-    if @permissions >= 20
+    #if @permissions >= 20
       
         #content_params["course_id"] = params[:content][:course]
         #content_params["chapter_id"] = params[:content][:chapter]
@@ -70,10 +70,10 @@ class ContentsController < ApplicationController
             format.json { render json: @content.errors, status: :unprocessable_entity }
           end
         end
-    else
+    #else
           #Redirigir
-          redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
-    end
+    #      redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
+    #end
 
   end
 

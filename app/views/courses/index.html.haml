@@ -1,10 +1,15 @@
 %div{:class=> "bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 flex items-center justify-center overflow-hidden"}
   
   %div{:class =>"flex flex-wrap -mx-4 overflow-hidden items-center"}
-    %div{:class => "my-4 px-4 w-full overflow-hidden md:w-1/2 lg:w-1/3"}
-      .bg-white.m-4.shadow.py-4.px-4.hover:bg-green-200.rounded.text-center
-        %h1.text-3xl.font-1.font-bold Administrador
-        = link_to 'Crear curso', new_course_path, :class => "botonVerde"
+    
+      
+    -if user_signed_in?
+      -unless current_user.permissions == nil
+        -if current_user.permissions >= 50
+          %div{:class => "my-4 px-4 w-full overflow-hidden md:w-1/2 lg:w-1/3"}
+            .bg-white.m-4.shadow.py-4.px-4.hover:bg-green-200.rounded.text-center
+              %h1.text-3xl.font-1.font-bold Administrador
+              = link_to 'Crear curso', new_course_path, :class => "botonVerde"
     - @courses.each do |course|
       %div{:class => "my-4 px-4 w-full overflow-hidden md:w-1/2 lg:w-1/3"}
         .bg-white.m-4.shadow.py-4.px-4.hover:bg-green-200.rounded
@@ -14,8 +19,11 @@
           %p.font-2= course.description
           .text-center.py-4
             = link_to 'Ver', course, :class=> "py-4 botonVerde"
-            = link_to 'Edit', edit_course_path(course)
-            = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }
+            -if user_signed_in?
+              -unless current_user.permissions == nil
+                -if current_user.permissions >= 50
+                  = link_to 'Editar', edit_course_path(course)
+                  = link_to 'Borrar', course, method: :delete, data: { confirm: 'Ojo... ¿estás seguro?' }
           %hr.py-2
           .grid.grid-cols-3.text-sm
             %div

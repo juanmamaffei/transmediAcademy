@@ -27,7 +27,9 @@
       =image_tag 'flecha-hacia-abajo.svg', :class => 'w-12 animate-bounce inline-block opacity-50' 
     -# .absolute.right-0.top-16.hidden.lg-inset-y-0.lg:block{:class=> "lg:w-1/3"}
     -#  =image_tag "viral.svg", :class => "lg:h-full"
-    = link_to 'Edit', edit_course_chapter_path(@course,@chapter)
+    -unless current_user.permissions == nil
+      -if current_user.permissions >= 50
+        = link_to 'Editar', edit_course_chapter_path(@course,@chapter)
 - @contents.each do |content|
   - @content = content
   %a{:name => content.sequence}
