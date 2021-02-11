@@ -1,114 +1,122 @@
+-if @show == true
+  %nav{:id => "header", :class => "fixed w-full z-10 top-0"}
+    %div{:id => "progress", :class => "h-1 z-20 top-0", :style => "background:linear-gradient(to right, green var(--scroll), transparent 0)"}
+  %div{:class => "container w-full md:max-w-3xl mx-auto pt-20"}
+    %div{:class => "w-full px-4 md:px-6 text-xl text-gray-800 leading-normal "}
 
-%nav{:id => "header", :class => "fixed w-full z-10 top-0"}
-  %div{:id => "progress", :class => "h-1 z-20 top-0", :style => "background:linear-gradient(to right, green var(--scroll), transparent 0)"}
-%div{:class => "container w-full md:max-w-3xl mx-auto pt-20"}
-  %div{:class => "w-full px-4 md:px-6 text-xl text-gray-800 leading-normal "}
-
-    .text-base.md:text-sm.text-green-500.font-bold
-      %p{:class =>"text-sm md:text-base font-normal text-gray-600"}
-        =link_to @course.name, course_path(@course)
-        >>
-        =link_to @chapter.name, course_chapter_path(@course, @chapter)
-      %h1{:class => "font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"}
-        = @content.name 
+      .text-base.md:text-sm.text-green-500.font-bold
+        %p{:class =>"text-sm md:text-base font-normal text-gray-600"}
+          =link_to @course.name, course_path(@course)
+          >>
+          =link_to @chapter.name, course_chapter_path(@course, @chapter)
+        %h1{:class => "font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"}
+          = @content.name 
+        
+          
+      -case @content.typeOfContent.to_i
+        -when 1
+          -# Texto enriquecido
+          = @content.richContent
+        -when 2
+          -# Video
+          .mx-auto.flex=raw(@content.embed)  
+        -when 3
+          -# Tweet
+          =raw(@content.embed)
+        -when 4
+          -# Post de IG
+          =raw(@content.embed)
+        -when 5
+          -# TikTok
+          =raw(@content.embed)
+        -else
+          -# Contenido desconocido
+          =raw(@content.embed)
+      .my-4
+      - boton = raw(inline_svg_tag "raise-hand.svg", class: 'h-8 w-8 inline-block animate-bounce') + "Contenido creado por los usuarios"
+      .m-2.text-center{:class => "text-sm md:text-xl"}= link_to boton, content_user_contents_path(@content.id), :class => "m-2 bg-purple-200 shadow px-2 md:px-6 py-4 font-1 rounded-xl text-center hover:bg-purple-600 hover:text-white"
+      =#.m-2.bg-purple-200.shadow.py-2.px-6.font-1.rounded-xl.text-center{:class => "hover:bg-purple-600 hover:text-white"}
       
         
-    -case @content.typeOfContent.to_i
-      -when 1
-        -# Texto enriquecido
-        = @content.richContent
-      -when 2
-        -# Video
-        .mx-auto.flex=raw(@content.embed)  
-      -when 3
-        -# Tweet
-        =raw(@content.embed)
-      -when 4
-        -# Post de IG
-        =raw(@content.embed)
-      -when 5
-        -# TikTok
-        =raw(@content.embed)
-      -else
-        -# Contenido desconocido
-        =raw(@content.embed)
-    .my-4
-    - boton = raw(inline_svg_tag "raise-hand.svg", class: 'h-8 w-8 inline-block animate-bounce') + "Contenido creado por los usuarios"
-    .m-2.text-center{:class => "text-sm md:text-xl"}= link_to boton, content_user_contents_path(@content.id), :class => "m-2 bg-purple-200 shadow px-2 md:px-6 py-4 font-1 rounded-xl text-center hover:bg-purple-600 hover:text-white"
-    =#.m-2.bg-purple-200.shadow.py-2.px-6.font-1.rounded-xl.text-center{:class => "hover:bg-purple-600 hover:text-white"}
+        
+      
+      .my-8.mx-2.bg-gray-50.shadow.py-2.px-6.text-sm
+        - case @content.priority.to_i
+          -when 1
+            %b Contenido prioritario y correlativo
+            %p Necesario para adquirir los conocimientos básicos del curso y para avanzar al siguiente capítulo.
+          -when 2
+            %b Contenido prioritario
+            %p Es necesario para adquirir los conocimientos básicos del curso, pero podrás avanzar de todos modos sin haberlo navegado por completo. 
+          -when 3
+            %b Contenido complementario
+            %p Podrás saltar este contenido y aún así haber adquirido los conocimientos que se han considerado básicos para el curso. 
+      
+      .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
+        %b Después de este contenido deberías ser capaz de:
+        %ul.list-disc
+          -@content.goals.each do |e|
+            %li
+              = e
+      -unless @content.minimumScore == nil
+        .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
+          %p.font-bold Evaluación
+          
+          %p Puntos para superar el contenido: 
+          =@show
+          %span.text-lg.text-green-800
+            =@points.to_i
+          de
+          %span.text-xl.text-red-800=@content.minimumScore
+          
+          -# SI EL ESTUDIANTE YA APROBÓ EL CONTENIDO, NO DEBERÍAN IMPRIMIRSE LAS PRÓXIMAS DOS LÍNEAS
+          -unless @points.to_i >= @content.minimumScore.to_i
+            - boton = raw(inline_svg_tag "reading-book.svg", class: 'h-8 w-8 inline-block animate-bounce svgInverso') + "Ganarme esos puntos"
+            .my-8.mx-2.text-center{:class => "text-sm md:text-xl"}= link_to boton, content_tests_path(@content.id), :class => "m-2 bg-green-200 shadow px-2 md:px-6 py-4 font-1 rounded-xl text-center hover:bg-green-600 hover:text-white"
+
+        
+      
+
+      -# Siguiente contenido | Anterior
+  %script
+    var h = document.documentElement,
+    b = document.body,
+    st = 'scrollTop',
+    sh = 'scrollHeight',
+    progress = document.querySelector('#progress'),
+    scroll;
+    var scrollpos = window.scrollY;
+    var header = document.getElementById("header");
+    var navcontent = document.getElementById("nav-content");
+
+    document.addEventListener('scroll', function() {
+
+    /*Refresh scroll % width*/
+    scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
+    progress.style.setProperty('--scroll', scroll + '%');
+
+    /*Apply classes for slide in bar*/
+    scrollpos = window.scrollY;
+
+    if (scrollpos > 10) {
+    header.classList.add("bg-white");
+    header.classList.add("shadow");
+    //navcontent.classList.remove("bg-gray-100");
+    //navcontent.classList.add("bg-white");
+    } else {
+    //header.classList.remove("bg-white");
+    header.classList.remove("shadow");
+    //navcontent.classList.remove("bg-white");
+    //navcontent.classList.add("bg-gray-100");
+
+    }
+
+    });
+-else
+  No podés ver este contenido porque necesitás 
+  =@data[0][:puntos_requeridos]
+  puntos en
+  =link_to @data[0][:requerimiento].name, content_path(@data[0][:requerimiento].id)
+  y tenés
+  =@data[0][:puntos_obtenidos].to_i
     
-      
-      
-    
-    .my-8.mx-2.bg-gray-50.shadow.py-2.px-6.text-sm
-      - case @content.priority.to_i
-        -when 1
-          %b Contenido prioritario y correlativo
-          %p Necesario para adquirir los conocimientos básicos del curso y para avanzar al siguiente capítulo.
-        -when 2
-          %b Contenido prioritario
-          %p Es necesario para adquirir los conocimientos básicos del curso, pero podrás avanzar de todos modos sin haberlo navegado por completo. 
-        -when 3
-          %b Contenido complementario
-          %p Podrás saltar este contenido y aún así haber adquirido los conocimientos que se han considerado básicos para el curso. 
-    
-    .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
-      %b Después de este contenido deberías ser capaz de:
-      %ul.list-disc
-        -@content.goals.each do |e|
-          %li
-            = e
-    -# SI EL ESTUDIANTE YA APROBÓ EL CONTENIDO, NO DEBERÍAN IMPRIMIRSE LAS PRÓXIMAS DOS LÍNEAS
-    .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
-      %p.font-bold Evaluación
-      
-      %p Puntos para superar el contenido: 
-      %span.text-lg.text-green-800
-        =@points
-      de
-      %span.text-xl.text-red-800=@content.minimumScore
-      
-      
-      - boton = raw(inline_svg_tag "reading-book.svg", class: 'h-8 w-8 inline-block animate-bounce svgInverso') + "Ganarme esos puntos"
-      .my-8.mx-2.text-center{:class => "text-sm md:text-xl"}= link_to boton, content_tests_path(@content.id), :class => "m-2 bg-green-200 shadow px-2 md:px-6 py-4 font-1 rounded-xl text-center hover:bg-green-600 hover:text-white"
-
-      
-    
-
-    -# Siguiente contenido | Anterior
-%script
-  var h = document.documentElement,
-  b = document.body,
-  st = 'scrollTop',
-  sh = 'scrollHeight',
-  progress = document.querySelector('#progress'),
-  scroll;
-  var scrollpos = window.scrollY;
-  var header = document.getElementById("header");
-  var navcontent = document.getElementById("nav-content");
-
-  document.addEventListener('scroll', function() {
-
-  /*Refresh scroll % width*/
-  scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
-  progress.style.setProperty('--scroll', scroll + '%');
-
-  /*Apply classes for slide in bar*/
-  scrollpos = window.scrollY;
-
-  if (scrollpos > 10) {
-  header.classList.add("bg-white");
-  header.classList.add("shadow");
-  //navcontent.classList.remove("bg-gray-100");
-  //navcontent.classList.add("bg-white");
-  } else {
-  //header.classList.remove("bg-white");
-  header.classList.remove("shadow");
-  //navcontent.classList.remove("bg-white");
-  //navcontent.classList.add("bg-gray-100");
-
-  }
-
-  });
-
-  

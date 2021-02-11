@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_11_141524) do
+ActiveRecord::Schema.define(version: 2021_02_11_161837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(version: 2021_02_11_141524) do
     t.text "richContent"
     t.integer "priority"
     t.integer "testId"
-    t.integer "requirements", default: [], array: true
     t.integer "minimumScore"
     t.string "goals", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
@@ -79,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_02_11_141524) do
     t.integer "typeOfContent"
     t.integer "sequence"
     t.text "embed"
+    t.integer "requirements"
     t.index ["chapter_id"], name: "index_contents_on_chapter_id"
     t.index ["course_id"], name: "index_contents_on_course_id"
   end

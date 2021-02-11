@@ -18,6 +18,37 @@ class ContentsController < ApplicationController
       # Sólo acceden los alumnos
 
       if @permissions >= 10
+        
+
+        if @content.requirements == nil
+          # Puede ver (no hay requerimientos)
+          @show = true;
+          
+        else
+          
+          contenido_requerido = Content.find_by(id: @content.requirements)
+          puntos_requeridos = contenido_requerido.minimumScore
+
+          tests_hechos = Point.select(:score).where(user: current_user, content_id: @content.requirements) #en el id: @content.requirement
+          
+          puntos_disponibles = 0
+          #sumar score de los test hechos
+          tests_hechos.each do |t|
+            puntos_disponibles = puntos_disponibles.to_i + t.score.to_i
+          end
+
+          if puntos_disponibles < puntos_requeridos
+            # No puede ver (No alcanzan los puntos)
+            @show = false;
+            @data = [:puntos_disponibles => puntos_disponibles, :puntos_requeridos => puntos_requeridos, :requerimiento => contenido_requerido]
+          else
+            # Puede ver (no le alcanzan los puntos)
+            @show = true;
+
+          end
+        end
+
+        
         cape = Content.find(params[:id])
         @chapter = Chapter.find(cape.chapter_id)    
         
@@ -27,7 +58,9 @@ class ContentsController < ApplicationController
         puntos.each do |p|
           @points = @points + p.score
         end
+
         
+
       else
           #Redirigir
           redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
