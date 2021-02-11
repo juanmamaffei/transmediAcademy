@@ -8,13 +8,13 @@
   .grid.grid-rows-4.m-4.font-2
     
     .py-4.px-6.mx-2.rounded-xl.shadow.text-xl.bg-white.my-4.opacity-80{:class => "hover:opacity-100"}
-      =link_to @test.a1, test_corregir_path(@test, ans: "1"), method: :post
+      =link_to @test.a1, content_test_corregir_path(@content, @test, ans: "1"), method: :post
     .py-4.px-6.mx-2.rounded-xl.shadow.text-xl.bg-white.my-4.opacity-80{:class => "hover:opacity-100"}
-      =link_to @test.a2, test_corregir_path(@test, ans: "2"), method: :post
+      =link_to @test.a2, content_test_corregir_path(@content, @test, ans: "2"), method: :post
     .py-4.px-6.mx-2.rounded-xl.shadow.text-xl.bg-white.my-4.opacity-80{:class => "hover:opacity-100"}
-      =link_to @test.a3, test_corregir_path(@test, ans: "3"), method: :post
+      =link_to @test.a3, content_test_corregir_path(@content, @test, ans: "3"), method: :post
     .py-4.px-6.mx-2.rounded-xl.shadow.text-xl.bg-white.my-4.opacity-80{:class => "hover:opacity-100"}
-      =link_to @test.a4, test_corregir_path(@test, ans: "4"), method: :post
+      =link_to @test.a4, content_test_corregir_path(@content, @test, ans: "4"), method: :post
 
 
 =#"<div class="py-4 px-6 mx-2 rounded-xl shadow text-xl bg-white my-4 opacity-80 hover:opacity-100"> " + @test.a1 +" </div>"

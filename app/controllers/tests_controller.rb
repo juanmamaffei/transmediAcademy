@@ -1,9 +1,10 @@
 class TestsController < ApplicationController
   before_action :set_test, only: %i[ show edit update destroy ]
+  before_action :set_content
 
   # GET /tests or /tests.json
   def index
-    @tests = Test.all
+    @tests = Test.where(content_id: @content.id)
   end
 
   # GET /tests/1 or /tests/1.json
@@ -29,7 +30,7 @@ class TestsController < ApplicationController
 
     respond_to do |format|
       if @test.save
-        format.html { redirect_to @test, notice: "Creaste una prueba ;-)" }
+        format.html { redirect_to content_test_path(@content, @test), notice: "Creaste una prueba ;-)" }
         format.json { render :show, status: :created, location: @test }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +43,7 @@ class TestsController < ApplicationController
   def update
     respond_to do |format|
       if @test.update(test_params)
-        format.html { redirect_to @test, notice: "Modificaste una prueba. Ya no se van a machetear..." }
+        format.html { redirect_to content_test_path(@content, @test), notice: "Modificaste una prueba. Ya no se van a machetear..." }
         format.json { render :show, status: :ok, location: @test }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +56,7 @@ class TestsController < ApplicationController
   def destroy
     @test.destroy
     respond_to do |format|
-      format.html { redirect_to tests_url, notice: "Borraste una prueba." }
+      format.html { redirect_to content_tests_path, notice: "Borraste una prueba." }
       format.json { head :no_content }
     end
   end
@@ -83,6 +84,11 @@ class TestsController < ApplicationController
     def set_test
       @test = Test.find(params[:id])
     end
+
+    def set_content
+      @content = Content.find(params[:content_id])
+    end
+    
 
     # Only allow a list of trusted parameters through.
     def test_params

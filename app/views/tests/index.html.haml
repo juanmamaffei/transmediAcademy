@@ -1,6 +1,6 @@
 %h1 Listing tests
 
-%table
+%table.table-auto
   %thead
     %tr
       %th Question
@@ -26,14 +26,14 @@
         %td= test.a3
         %td= test.a4
         %td= test.correct
-        %td= test.content
+        %td= test.content.id
         %td= test.score
         %td= test.difficulty
         %td= test.state
-        %td= link_to 'Show', test
-        %td= link_to 'Edit', edit_test_path(test)
-        %td= link_to 'Destroy', test, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', content_test_path(@content, test)
+        %td= link_to 'Edit', edit_content_test_path(@content, test)
+        %td= link_to 'Destroy', content_test_path(@content, test), method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Test', new_test_path
+= link_to 'New Test', new_content_test_path
