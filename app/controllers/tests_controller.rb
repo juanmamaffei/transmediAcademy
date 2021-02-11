@@ -15,8 +15,14 @@ class TestsController < ApplicationController
       #Tomar uno random PERO SE DEBERÍAN FILTRAR LOS QUE EL ESTUDIANTE YA APROBÓ (están en el modelo Points)
       
       #seleccionar el current_user y el contenido para consultar todos los test que coincidan
+      tests_hechos = Point.select(:test_id).where(user: current_user, content: @content)
       
-      untest = Test.where(content_id: @content.id).order("RANDOM()").first
+      tests_hechos_array =[]
+      tests_hechos.each do |t|
+        tests_hechos_array << t.test_id
+      end
+      
+      untest = Test.where(content_id: @content.id).where.not(id: tests_hechos_array).order("RANDOM()").first
 
       unless untest == nil
         redirect_to content_test_path(@content, untest)
