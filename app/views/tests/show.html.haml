@@ -1,0 +1,20 @@
+.bg-purple-600.min-h-screen.overflow-hidden.text-center
+
+  .h-12.text-sm.font-1.flex.items-center.justify-center.text-white
+    Veamos si entendiste
+    = @test.content.name
+  .bg-green-400.h-32.flex.items-center.justify-center.font-1.font-bold.text-purple-800
+    = @test.question
+  .grid.grid-rows-4.m-4.font-2
+    
+    .py-4.px-6.mx-2.rounded-xl.shadow.text-xl.bg-white.my-4.opacity-80{:class => "hover:opacity-100"}
+      =link_to @test.a1, test_corregir_path(@test, ans: "1"), method: :post
+    .py-4.px-6.mx-2.rounded-xl.shadow.text-xl.bg-white.my-4.opacity-80{:class => "hover:opacity-100"}
+      =link_to @test.a2, test_corregir_path(@test, ans: "2"), method: :post
+    .py-4.px-6.mx-2.rounded-xl.shadow.text-xl.bg-white.my-4.opacity-80{:class => "hover:opacity-100"}
+      =link_to @test.a3, test_corregir_path(@test, ans: "3"), method: :post
+    .py-4.px-6.mx-2.rounded-xl.shadow.text-xl.bg-white.my-4.opacity-80{:class => "hover:opacity-100"}
+      =link_to @test.a4, test_corregir_path(@test, ans: "4"), method: :post
+
+
+=#"<div class="py-4 px-6 mx-2 rounded-xl shadow text-xl bg-white my-4 opacity-80 hover:opacity-100"> " + @test.a1 +" </div>"

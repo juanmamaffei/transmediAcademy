@@ -1,0 +1,39 @@
+%h1 Listing tests
+
+%table
+  %thead
+    %tr
+      %th Question
+      %th A1
+      %th A2
+      %th A3
+      %th A4
+      %th Correct
+      %th Content
+      %th Score
+      %th Difficulty
+      %th State
+      %th
+      %th
+      %th
+
+  %tbody
+    - @tests.each do |test|
+      %tr
+        %td= test.question
+        %td= test.a1
+        %td= test.a2
+        %td= test.a3
+        %td= test.a4
+        %td= test.correct
+        %td= test.content
+        %td= test.score
+        %td= test.difficulty
+        %td= test.state
+        %td= link_to 'Show', test
+        %td= link_to 'Edit', edit_test_path(test)
+        %td= link_to 'Destroy', test, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Test', new_test_path

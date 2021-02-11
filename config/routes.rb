@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :tests do
+    post "corregir" => "tests#corregir"
+  end
   resources :matriculations
   resources :contents do
     resources :user_contents do
