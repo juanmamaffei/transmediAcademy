@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
 
+  get 'points/assign'
+  get 'points/destroy'
+  get 'points/consult'
+  get 'points/view'
   resources :matriculations
   resources :contents do
     resources :user_contents do
@@ -11,11 +15,13 @@ Rails.application.routes.draw do
     resources :tests do
       post "corregir" => "tests#corregir"
     end
+    post "points" => "points#consult"
   end
   
   resources :courses do
     resources :chapters
   end
+
 
   devise_for :users
   root 'home#index'

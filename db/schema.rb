@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_222044) do
+ActiveRecord::Schema.define(version: 2021_02_11_141524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,18 @@ ActiveRecord::Schema.define(version: 2021_02_10_222044) do
     t.index ["user_id"], name: "index_matriculations_on_user_id"
   end
 
+  create_table "points", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "content_id", null: false
+    t.bigint "test_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "score"
+    t.index ["content_id"], name: "index_points_on_content_id"
+    t.index ["test_id"], name: "index_points_on_test_id"
+    t.index ["user_id"], name: "index_points_on_user_id"
+  end
+
   create_table "tests", force: :cascade do |t|
     t.string "question"
     t.string "a1"
@@ -175,6 +187,9 @@ ActiveRecord::Schema.define(version: 2021_02_10_222044) do
   add_foreign_key "contents", "courses"
   add_foreign_key "matriculations", "courses"
   add_foreign_key "matriculations", "users"
+  add_foreign_key "points", "contents"
+  add_foreign_key "points", "tests"
+  add_foreign_key "points", "users"
   add_foreign_key "tests", "contents"
   add_foreign_key "user_contents", "contents"
   add_foreign_key "user_contents", "users"

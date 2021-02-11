@@ -20,6 +20,14 @@ class ContentsController < ApplicationController
       if @permissions >= 10
         cape = Content.find(params[:id])
         @chapter = Chapter.find(cape.chapter_id)    
+        
+        #Se le pasa el usuario y contenido como parámetros y devuelve la suma de los puntos 
+        puntos = Point.select(:score).where(user: current_user, content: @content)
+        @points = 0
+        puntos.each do |p|
+          @points = @points + p.score
+        end
+        
       else
           #Redirigir
           redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."

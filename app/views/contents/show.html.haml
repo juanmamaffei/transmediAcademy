@@ -59,8 +59,18 @@
           %li
             = e
     -# SI EL ESTUDIANTE YA APROBÓ EL CONTENIDO, NO DEBERÍAN IMPRIMIRSE LAS PRÓXIMAS DOS LÍNEAS
-    - boton = raw(inline_svg_tag "reading-book.svg", class: 'h-8 w-8 inline-block animate-bounce svgInverso') + "Responder la pregunta"
-    .my-8.mx-2.text-center{:class => "text-sm md:text-xl"}= link_to boton, content_tests_path(@content.id), :class => "m-2 bg-green-200 shadow px-2 md:px-6 py-4 font-1 rounded-xl text-center hover:bg-green-600 hover:text-white"
+    .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
+      %p.font-bold Evaluación
+      
+      %p Puntos para superar el contenido: 
+      %span.text-lg.text-green-800
+        =@points
+      de
+      %span.text-xl.text-red-800=@content.minimumScore
+      
+      
+      - boton = raw(inline_svg_tag "reading-book.svg", class: 'h-8 w-8 inline-block animate-bounce svgInverso') + "Ganarme esos puntos"
+      .my-8.mx-2.text-center{:class => "text-sm md:text-xl"}= link_to boton, content_tests_path(@content.id), :class => "m-2 bg-green-200 shadow px-2 md:px-6 py-4 font-1 rounded-xl text-center hover:bg-green-600 hover:text-white"
 
       
     

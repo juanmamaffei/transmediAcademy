@@ -12,9 +12,17 @@ class TestsController < ApplicationController
       #Lo que se puede hacer
       @tests = Test.where(content_id: @content.id)
     elsif @permissions >= 10
-      #Tomar uno random
+      #Tomar uno random PERO SE DEBERÍAN FILTRAR LOS QUE EL ESTUDIANTE YA APROBÓ (están en el modelo Points)
+      
+      #seleccionar el current_user y el contenido para consultar todos los test que coincidan
+      
       untest = Test.where(content_id: @content.id).order("RANDOM()").first
-      redirect_to content_test_path(@content, untest)
+
+      unless untest == nil
+        redirect_to content_test_path(@content, untest)
+      else
+        redirect_to content_path(@content), notice: "No hay tests para este contenido."
+      end
     else
       #Redirigir al root
       redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
@@ -131,9 +139,14 @@ class TestsController < ApplicationController
     # Verifica si la respuesta es correcta
     if @test.correct == ans
       # Registra la respuesta en el log
+      
+      log = Point.new(:test => @test, :user => current_user, :content => @content, :score => @test.score)
+      
+      log.save
+
 
       # Dirige al contenido
-      redirect_to content_path(@test.content_id), notice: "Bien ahí... ya podés pasar al siguiente contenido."
+      redirect_to content_path(@test.content_id), notice: "Bien ahí, crack ;-)"
     else
       #Dirige al contenido y te dice que pifiaste
       redirect_to content_path(@test.content_id), notice: "Te equivocaste... No pasa nada, pero quizás necesites volver a revisar el contenido."
