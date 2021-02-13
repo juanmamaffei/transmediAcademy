@@ -1,3 +1,13 @@
+-if user_signed_in?
+  -unless current_user.name == nil
+    - nombre = current_user.name
+  -else
+    - nombre = ""
+  -unless current_user.email == nil
+    - email = current_user.email
+  -else
+    - email = ""
+
 = form_for @lead do |f|
   - if @lead.errors.any?
     #error_explanation
@@ -6,23 +16,17 @@
         - @lead.errors.full_messages.each do |message|
           %li= message
 
-  .field
-    = f.label :user
-    = f.text_field :user
-  .field
-    = f.label :status
-    = f.text_field :status
-  .field
-    = f.label :course
-    = f.text_field :course
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :info
-    = f.text_field :info
-  .actions
-    = f.submit 'Save'
+  .field.font-2.py-2
+    ¿En qué estás interesado?
+    = f.text_field :course, :value => params[:course], :class => "textBox"
+  .field.font-2.py-2
+    Tu nombre
+    = f.text_field :name, :value => nombre, :class => "textBox"
+  .field.font-2.py-2
+    Tu email
+    = f.text_field :email, :value => email, :class => "textBox"
+  .field.font-2.py-2
+    ¿Querés decirnos algo? (opcional)
+    = f.text_area :info, :class => "textBox"
+  .text-center.py-4
+    = f.submit 'Enviar', :class => "botonLargo"

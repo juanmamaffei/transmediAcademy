@@ -22,10 +22,14 @@ class LeadsController < ApplicationController
   # POST /leads or /leads.json
   def create
     @lead = Lead.new(lead_params)
-
+    
+    if user_signed_in?
+      @lead.user = current_user
+    end
+    @lead.status = 0
     respond_to do |format|
       if @lead.save
-        format.html { redirect_to @lead, notice: "Lead was successfully created." }
+        format.html { redirect_to root_path, notice: "En breve nos vamos a comunicar con vos :-)" }
         format.json { render :show, status: :created, location: @lead }
       else
         format.html { render :new, status: :unprocessable_entity }
