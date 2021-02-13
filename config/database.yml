@@ -83,4 +83,4 @@ production:
   <<: *default
   database: transmediAcademy_production
   username: transmediAcademy
-  password: <%= ENV['TRANSMEDIACADEMY_DATABASE_PASSWORD'] %>
+  password: laesmeagnosenadevodetaenmi
