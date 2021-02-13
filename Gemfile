@@ -39,6 +39,7 @@ gem 'inline_svg'
 gem 'acts_as_votable'
 
 
+gem 'msgpack', '~> 1.4', '>= 1.4.2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -55,6 +56,11 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem "capistrano", require: false
+  gem "capistrano-rails", require: false
+  #gem 'capistrano-rbenv'
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
   gem 'spring'
 end
 
