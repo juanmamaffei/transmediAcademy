@@ -62,12 +62,13 @@
         .m-2.bg-gray-50.shadow.py-2.px-6.text-sm
           %p.font-bold Evaluación
           
-          %p Puntos para superar el contenido: 
-          =@show
-          %span.text-lg.text-green-800
-            =@points.to_i
-          de
-          %span.text-xl.text-red-800=@content.minimumScore
+          %p.text-center
+            Puntos para superar el contenido: 
+          
+            %span.text-lg.text-green-800
+              =@points.to_i
+            de
+            %span.text-xl.text-red-800=@content.minimumScore
           
           -# SI EL ESTUDIANTE YA APROBÓ EL CONTENIDO, NO DEBERÍAN IMPRIMIRSE LAS PRÓXIMAS DOS LÍNEAS
           -unless @points.to_i >= @content.minimumScore.to_i
@@ -112,11 +113,16 @@
     }
 
     });
--else
-  No podés ver este contenido porque necesitás 
-  =@data[0][:puntos_requeridos]
-  puntos en
-  =link_to @data[0][:requerimiento].name, content_path(@data[0][:requerimiento].id)
-  y tenés
-  =@data[0][:puntos_obtenidos].to_i
+-elsif @show == false
+  %div{:class => "my-4 px-2 w-3/4 md:w-2/4 rounded-xl bg-purple-200 mx-auto text-center font-2"}
+    .py-4.animate-pulse=inline_svg "padlock.svg", :class => "h-48 w-48 inline-block svgInverso"
+    %p.py-2.text-2xl.font-bold No podés ver este contenido... 
+    
+    %p.py-4
+      Necesitás
+      %span.font-bold.text-purple-800.text-xl=@data[0][:puntos_requeridos]
+      puntos en
+      %span.font-bold.text-purple-800.animate-pulse=link_to @data[0][:requerimiento].name, content_path(@data[0][:requerimiento].id), :class => "hover: text-purple-400"
+      y tenés
+      %span.font-bold.text-purple-800.text-xl=@data[0][:puntos_obtenidos].to_i
     

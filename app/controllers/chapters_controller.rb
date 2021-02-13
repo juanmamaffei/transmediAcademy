@@ -11,6 +11,7 @@ class ChaptersController < ApplicationController
     if @permissions >= 10
       
       @chapters = Chapter.where(course_id:@course)
+      
     else
       #Redirigir
       redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."

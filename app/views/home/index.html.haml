@@ -1,14 +1,24 @@
-.fondoGris.full-height
-    .container
-        .cuadroBlanco
-            .content-center.text-center
-                .logo=image_tag "logo_gris.png", width: '300px'
+-unless user_signed_in?
+    .bg-purple-600.w-screen
+        .py-4.text-center
+            .inline-block=image_tag "logo_blanco.png", width: '300px'
+        .p-12.text-gray-200
+            .font-1.text-3xl
+                Aprendé en la primera
+            .font-2.text-4xl.font-bold
+                escuela online transmedia
 
-            -if user_signed_in?
-                %p.font-2.font-sm.text-gray-900 Bienvenido
-                .botonVerde
-                    =link_to "Cerrar sesión", destroy_user_session_path, method: :delete
-            -else
-                %p.font-2.font-sm.text-gray-900 Iniciá sesión para acceder a los contenidos
-                .botonVerde
-                    =link_to "Iniciar sesión", new_user_session_path
+
+    .bg-gray-50.w-screen.p-12.text-center
+        .p-4.font-2.text-xl
+            Nuestros expertos diseñan los cursos
+            .text-green-600 y la comunidad los mejora
+
+        .p-4.font-2.font-sm.text-gray-900
+            %p Iniciá sesión para acceder a los contenidos
+
+            .botonVerde
+                =link_to "¡Entrar!", new_user_session_path
+
+.bg-gray-200.w-screen
+    =render template: "courses/index"
