@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 
+  resources :leads
   get 'points/assign'
   get 'points/destroy'
   get 'points/consult'

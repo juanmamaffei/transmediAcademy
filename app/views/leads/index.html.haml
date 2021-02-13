@@ -1,0 +1,31 @@
+%h1 Listing leads
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Status
+      %th Course
+      %th Name
+      %th Email
+      %th Info
+      %th
+      %th
+      %th
+
+  %tbody
+    - @leads.each do |lead|
+      %tr
+        %td= lead.user
+        %td= lead.status
+        %td= lead.course
+        %td= lead.name
+        %td= lead.email
+        %td= lead.info
+        %td= link_to 'Show', lead
+        %td= link_to 'Edit', edit_lead_path(lead)
+        %td= link_to 'Destroy', lead, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Lead', new_lead_path

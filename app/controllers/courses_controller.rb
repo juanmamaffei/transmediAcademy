@@ -20,12 +20,9 @@ class CoursesController < ApplicationController
   end
   # GET /courses/1 or /courses/1.json
   def show
-    # Sólo acceden los estudiantes
-    if @permissions >= 10
+    
       @chapters = Chapter.where(course_id: @course.id).order("sequence ASC, created_at DESC")
-    else
-      redirect_to root_path, notice: "No tenés permiso para acceder acá."
-    end
+
   end
 
   # GET /courses/new

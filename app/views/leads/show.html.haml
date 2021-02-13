@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @lead.user
+%p
+  %b Status:
+  = @lead.status
+%p
+  %b Course:
+  = @lead.course
+%p
+  %b Name:
+  = @lead.name
+%p
+  %b Email:
+  = @lead.email
+%p
+  %b Info:
+  = @lead.info
+
+= link_to 'Edit', edit_lead_path(@lead)
+\|
+= link_to 'Back', leads_path
