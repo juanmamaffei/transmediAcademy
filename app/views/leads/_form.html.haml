@@ -18,7 +18,8 @@
 
   .field.font-2.py-2
     ¿En qué estás interesado?
-    = f.text_field :course, :value => params[:course], :class => "textBox"
+    =# f.text_field :course, :value => params[:course], :class => "textBox"
+    = f.select :course, options_for_select(@courses,params[:course]), {}, :class => "rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 bg-white text-lg font-1"
   .field.font-2.py-2
     Tu nombre
     = f.text_field :name, :value => nombre, :class => "textBox"

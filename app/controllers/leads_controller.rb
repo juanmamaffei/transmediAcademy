@@ -1,6 +1,9 @@
 class LeadsController < ApplicationController
   before_action :set_lead, only: %i[ show edit update destroy ]
 
+  before_action :authenticate_user!, only: %i[ show index edit update destroy ]
+  before_action :check_god, only: %i[ show index edit update destroy ]
+
   # GET /leads or /leads.json
   def index
     @leads = Lead.all
@@ -13,6 +16,15 @@ class LeadsController < ApplicationController
   # GET /leads/new
   def new
     @lead = Lead.new
+    courses = Course.select(:id, :name).all
+
+
+
+
+    @courses = []
+    courses.each do |c|
+      @courses.push([c.name, c.id])
+    end
   end
 
   # GET /leads/1/edit
@@ -69,5 +81,16 @@ class LeadsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def lead_params
       params.require(:lead).permit(:user, :status, :course, :name, :email, :info)
+    end
+    def check_god
+      
+      unless current_user.permissions == nil
+        unless current_user.permissions >= 50
+          redirect_to root_path, notice: "Naaa. Estás re loco vo, amigo."
+        end
+      else
+          redirect_to root_path, notice: "Pfff... Tomate el palo..."
+      end
+    
     end
 end
