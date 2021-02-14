@@ -42,7 +42,7 @@ gem "capistrano"
 gem "capistrano-rails"
 gem 'capistrano-rbenv'
 #gem 'capistrano-rvm'
-gem 'capistrano-passenger'
+gem 'capistrano-passenger', '~> 0.2.0'
 
 
 
