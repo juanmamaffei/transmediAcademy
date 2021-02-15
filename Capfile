@@ -41,8 +41,8 @@ install_plugin Capistrano::SCM::Git
  require "capistrano/rails/assets"
  require "capistrano/rails/migrations"
  require "capistrano/passenger"
- require 'capistrano/puma'
- install_plugin Capistrano::Puma # Default puma tasks
+# require 'capistrano/puma'
+# install_plugin Capistrano::Puma # Default puma tasks
  set :rbenv_type, :user
  set :rbenv_ruby, '3.0.0'
 
