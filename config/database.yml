@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: transmediAcademy_production
-  username: transmediAcademy
+  username: deploy
   password: <%= ENV['TRANSMEDIACADEMY_DATABASE_PASSWORD'] %>
