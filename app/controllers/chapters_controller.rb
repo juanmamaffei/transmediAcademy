@@ -31,8 +31,31 @@ class ChaptersController < ApplicationController
       redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
     end
   
+    
+
+  end
 
 
+
+  # GET chapters/1/publicar
+  def publish
+
+    # Sólo pueden publicar los admin
+    if @permissions >= 30
+      
+      @chapter = Chapter.find(params[:chapter_id])
+
+      if @chapter.published?
+        @chapter.unpublish!
+        redirect_to course_chapters_path(@course), notice: "Dejamos el capítulo en borrador"
+      else
+        @chapter.publish!
+        redirect_to course_chapters_path(@course), notice: "Publicamos el capítulo"
+      end
+    else
+      #Redirigir
+      redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
+    end
   end
 
   # GET /chapters/new

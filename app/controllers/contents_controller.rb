@@ -12,7 +12,17 @@ class ContentsController < ApplicationController
       @contents = Content.all
 
   end
+  def publish
+    @course = Course.find(params[:course_id])
 
+    if @course.published?
+      @course.unpublish!
+      redirect_to courses_path, notice: "Dejamos el curso en borrador"
+    else
+      @course.publish!
+      redirect_to courses_path, notice: "Publicamos el curso"
+    end
+  end
   # GET /contents/1 or /contents/1.json
   def show
       # Sólo acceden los alumnos

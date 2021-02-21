@@ -5,7 +5,7 @@ class CoursesController < ApplicationController
 
   before_action :check_permissions, except: %i[index mycourses]
 
-  before_action :check_god, only: %i[new create]
+  before_action :check_god, only: %i[new create publish]
 
   # GET /courses or /courses.json
   def index
@@ -23,6 +23,18 @@ class CoursesController < ApplicationController
     
       @chapters = Chapter.where(course_id: @course.id).order("sequence ASC, created_at DESC")
 
+  end
+
+  def publish
+    @course = Course.find(params[:course_id])
+
+    if @course.published?
+      @course.unpublish!
+      redirect_to courses_path, notice: "Dejamos el curso en borrador"
+    else
+      @course.publish!
+      redirect_to courses_path, notice: "Publicamos el curso"
+    end
   end
 
   # GET /courses/new

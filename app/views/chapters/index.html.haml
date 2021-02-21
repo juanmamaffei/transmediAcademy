@@ -2,23 +2,27 @@
   %div{:class =>"flex flex-wrap -mx-4 overflow-hidden items-center"}
     -if user_signed_in?
       -unless current_user.permissions == nil
-        -if current_user.permissions >= 50
+        -if current_user.permissions >= 20
           %div{:class => "my-4 px-4 w-full overflow-hidden md:w-1/2 lg:w-1/3"}
             .bg-white.m-4.shadow.py-4.px-4.hover:bg-green-200.rounded.text-center
               %h1.text-3xl.font-1.font-bold Administrador
               =link_to 'Nuevo capítulo', new_course_chapter_path(@course), :class => "botonSecundario"
     -@chapters.each do |chapter|
-      %div{:class => "my-4 px-4 w-full overflow-hidden md:w-1/2 lg:w-1/3"}
-        .bg-white.m-4.shadow.py-4.px-4.hover:bg-green-200.rounded
-          %strong Capitulo 
-          = chapter.sequence
-          %h1.text-3xl.font-1.font-bold= chapter.name
-          %hr.py-2
-          %p.font-2= chapter.description
-          .text-center.py-4
-            = link_to 'Entrar', course_chapter_path(@course, chapter), :class=> "py-4 botonVerde"
-          -unless current_user.permissions == nil
-            -if current_user.permissions >= 50
-              .text-center.py-4
-                = link_to 'Editar', edit_course_chapter_path(@course, chapter)
-                = link_to 'Borrar', [@course,chapter], method: :delete, data: { confirm: 'Are you sure?' }
+      -if chapter.published? || current_user.permissions.to_i >= 20
+        %div{:class => "my-4 px-4 w-full overflow-hidden md:w-1/2 lg:w-1/3"}
+          .bg-white.m-4.shadow.py-4.px-4.hover:bg-green-200.rounded
+            %strong Capitulo 
+            = chapter.sequence
+            %h1.text-3xl.font-1.font-bold= chapter.name
+            %hr.py-2
+            %p.font-2= chapter.description
+            .text-center.py-4
+              = link_to 'Entrar', course_chapter_path(@course, chapter), :class=> "py-4 botonVerde"
+            -unless current_user.permissions == nil
+              -if current_user.permissions >= 20
+                .text-center.py-4
+                  = link_to 'Editar', edit_course_chapter_path(@course, chapter)
+                  = link_to 'Borrar', [@course,chapter], method: :delete, data: { confirm: 'Are you sure?' }
+                  - unless chapter.published?
+                    %span.text-red-600 En borrador
+

@@ -20,7 +20,10 @@ Rails.application.routes.draw do
   end
   
   resources :courses do
-    resources :chapters
+    resources :chapters do
+      get "publicar" => "chapters#publish"
+    end
+    get "publicar" => "courses#publish"
   end
 
 
