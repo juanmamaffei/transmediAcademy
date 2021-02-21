@@ -38,13 +38,14 @@ gem 'redcarpet'
 gem 'inline_svg'
 gem 'acts_as_votable'
 
-gem "capistrano"
-gem "capistrano-rails"
-gem 'capistrano-rbenv'
-#gem 'capistrano-rvm'
-gem 'capistrano-passenger', '~> 0.2.0'
-#gem 'capistrano-puma'
+#gem "capistrano"
+#gem "capistrano-rails"
+#gem 'capistrano-rbenv'
+##gem 'capistrano-rvm'
+#gem 'capistrano-passenger', '~> 0.2.0'
+##gem 'capistrano-puma'
 
+gem 'aasm', '~> 5.1', '>= 5.1.1'
 
 
 gem 'msgpack', '~> 1.4', '>= 1.4.2'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_13_174416) do
+ActiveRecord::Schema.define(version: 2021_02_21_181114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2021_02_13_174416) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "sequence"
+    t.string "aasm_state"
     t.index ["course_id"], name: "index_chapters_on_course_id"
   end
 
@@ -79,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_02_13_174416) do
     t.integer "sequence"
     t.text "embed"
     t.integer "requirements"
+    t.string "aasm_state"
     t.index ["chapter_id"], name: "index_contents_on_chapter_id"
     t.index ["course_id"], name: "index_contents_on_course_id"
   end
@@ -95,6 +97,7 @@ ActiveRecord::Schema.define(version: 2021_02_13_174416) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "chapters", default: [], array: true
+    t.string "aasm_state"
   end
 
   create_table "leads", force: :cascade do |t|
@@ -156,6 +159,7 @@ ActiveRecord::Schema.define(version: 2021_02_13_174416) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "content_type"
+    t.string "aasm_state"
     t.index ["content_id"], name: "index_user_contents_on_content_id"
     t.index ["user_id"], name: "index_user_contents_on_user_id"
   end

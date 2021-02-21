@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @courses = Course.all.take(6)
+    @courses = Course.all
   end
 end
