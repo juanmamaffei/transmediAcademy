@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       post "corregir" => "tests#corregir"
     end
     post "points" => "points#consult"
+    get "publicar" => "contents#publish"
+    get "deshabilitar" => "contents#disable"
   end
   
   resources :courses do

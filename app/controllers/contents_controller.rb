@@ -1,28 +1,56 @@
 class ContentsController < ApplicationController
   before_action :set_content, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  before_action :set_course, except: %i[ index new create]
+  before_action :set_course_modified, only: %i[ publish disable ]
+  before_action :set_course, except: %i[ index new create publish disable]
   before_action :check_permissions, except: %i[ index new ]
   before_action :check_god, only: %i[index]
+
 
   # GET /contents or /contents.json
   def index
     # Sólo acceden los administradores
-
-      @contents = Content.all
-
+    @contents = Content.all
   end
-  def publish
-    @course = Course.find(params[:course_id])
 
-    if @course.published?
-      @course.unpublish!
-      redirect_to courses_path, notice: "Dejamos el curso en borrador"
+  # GET contents/1/publicar
+  def publish
+    # Sólo pueden publicar los admin
+    if @permissions >= 30      
+      @content = Content.find(params[:content_id])
+      if @content.published?
+        @content.unpublish!
+        redirect_to course_chapters_path(@course), notice: "Dejamos el contenido en borrador"
+      else
+        @content.publish!
+        redirect_to course_chapters_path(@course), notice: "Publicamos el contenido"
+      end
     else
-      @course.publish!
-      redirect_to courses_path, notice: "Publicamos el curso"
+      #Redirigir
+      redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
     end
   end
+
+ # GET contents/1/disable
+ def disable
+  # Sólo pueden deshabilitar los admin
+  if @permissions >= 30      
+    #Setea el contenido
+    @content = Content.find(params[:content_id])
+    
+    unless @content.disabled?
+      @content.disable!
+      redirect_to course_chapters_path(@course), notice: "Deshabilitamos el contenido."
+    else
+      
+      redirect_to course_chapters_path(@course), notice: "El contenido ya estaba deshabilitado."
+    end
+  else
+    #Redirigir
+    redirect_to root_path, notice: "No tenés permiso para esto, chinwenwencha."
+  end
+end
+
   # GET /contents/1 or /contents/1.json
   def show
       # Sólo acceden los alumnos
@@ -66,7 +94,7 @@ class ContentsController < ApplicationController
         puntos = Point.select(:score).where(user: current_user, content: @content)
         @points = 0
         puntos.each do |p|
-          @points = @points + p.score
+          @points = @points + p.score.to_i
         end
 
         
@@ -181,6 +209,10 @@ class ContentsController < ApplicationController
     end
     def set_course
       cap = Content.find(params[:id])
+      @course = Course.find(cap.course_id)
+    end
+    def set_course_modified
+      cap = Content.find(params[:content_id])
       @course = Course.find(cap.course_id)
     end
     def check_permissions
