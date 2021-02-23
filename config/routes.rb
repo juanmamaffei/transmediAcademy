@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  
-
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   resources :leads
   get 'points/assign'
   get 'points/destroy'

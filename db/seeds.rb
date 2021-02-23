@@ -184,4 +184,4 @@ chapters = Chapter.create(
     {"name":"sapien sapien non","description":"vulputate ut ultrices vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae","course_id":13},
     {"name":"dolor morbi vel lectus in quam fringilla","description":"libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas","course_id":6}]
 
-)
+)AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
