@@ -13,16 +13,19 @@ class UserContent < ApplicationRecord
       state :featured, :banned
 
       #Declaramos los eventos
+      #GET banear
       event :ban do
-          transitions from: :published, to: :banned
+          transitions from: [:published, :featured], to: :banned
       end
+      #GET publicar
       event :publish do
         transitions from: :banned, to: :published
       end
+      #GET fijar
       event :pinup do
         transitions from: :published, to: :featured
       end
-
+      #GET fijar
       event :unpinup do
         transitions from: :featured, to: :published
       end

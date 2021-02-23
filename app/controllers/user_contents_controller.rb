@@ -1,8 +1,10 @@
 class UserContentsController < ApplicationController
-  before_action :set_user_content, only: %i[ show edit update destroy ]
+  before_action :set_user_content, only: %i[ show edit update destroy ban pinup ]
   before_action :set_content
   before_action :authenticate_user!
   before_action :check_owner, only: %i[ edit update destroy]
+  before_action :check_permissions, only: %i[ ban pinup ]
+
 
   respond_to :js, :html, :json
 
@@ -15,6 +17,51 @@ class UserContentsController < ApplicationController
   def show
     
   end
+
+
+  #GET /user_contents/1/banear
+  def ban
+    # Sólo pueden BANEAR los tutores
+    if @permissions >= 20      
+      
+      #Si está baneado lo publicamos
+      if @user_content.banned?
+        @user_content.publish!
+        redirect_to content_user_contents_path(@content), notice: "Publicamos el contenido."
+      #Si está publicado (o fijado) lo baneamos
+      else
+        @user_content.ban!
+        redirect_to content_user_contents_path(@content), notice: "Censuramos el contenido."
+      end
+    else
+      #Redirigir
+      redirect_to root_path, notice: "No tenés permiso para esto"
+    end
+  end
+
+  #GET /user_contents/1/fijar
+  def pinup
+    # Sólo pueden FIJAR los tutores
+    if @permissions >= 20      
+      
+      #Si está baneado lo publicamos
+      if @user_content.published?
+        @user_content.pinup!
+        redirect_to content_user_contents_path(@content), notice: "Fijamos el contenido como destacado."
+      #Si está publicado (o fijado) lo baneamos
+      elsif @user_content.featured?
+        @user_content.unpinup!
+        redirect_to content_user_contents_path(@content), notice: "Dejamos de destacar este contenido."
+      #Si no probablemente esté baneado.
+      else
+        redirect_to content_user_contents_path(@content), notice: "No pudimos fijar el contenido. Verificá que no esté baneado."
+      end
+      
+    else
+      #Redirigir
+      redirect_to root_path, notice: "No tenés permiso para esto"
+    end
+  end  
 
   # GET /user_contents/new
   def new
@@ -93,5 +140,15 @@ class UserContentsController < ApplicationController
       end
     end
     
+    def check_permissions
+
+      matricula = Matriculation.find_by(user: current_user, course: @content.course)
+
+      if matricula == nil
+        @permissions = 0
+      else
+        @permissions = matricula.permissions
+      end
+    end
 
 end

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :user_contents do
       member do
         put "like" => "user_contents#like"
+        get "fijar" => "user_contents#pinup"
+        get "banear" => "user_contents#ban"
       end
     end
     resources :tests do

@@ -14,50 +14,100 @@
         =#@user_contents.length
 
     - @user_contents.each do |user_content|
-      .bg-white.m-2.p-4.rounded-xl
-        - if user_content.responseTo?
-          En respuesta a 
-          = user_content.responseTo
-        -if user_content.user.avatar.attached?        
-          = image_tag user_content.user.avatar, :class => "bg-white img w-8 h-8 rounded-full inline-block mx-2"
-        -else
-          =image_tag "extraterrestre.svg", :class=> "bg-white img w-8 h-8 rounded-full inline-block mx-2"
-        -case user_content.content_type
-          -when 1
-            Duda de
-          -when 2
-            Aporte de 
+      -unless user_content.banned?
+        .bg-white.m-2.p-4.rounded-xl
+          - if user_content.responseTo?
+            En respuesta a 
+            = user_content.responseTo
+          -if user_content.user.avatar.attached?        
+            = image_tag user_content.user.avatar, :class => "bg-white img w-8 h-8 rounded-full inline-block mx-2"
           -else
-            Algo que dijo
-
-        -unless user_content.user.name == nil
-          = user_content.user.name
-        -else
-          = user_content.user.email
-        -markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-        .md= raw(markdown.render(user_content.markdownContent))
-      
-        .grid.grid-cols-3
-          %div
-            %span=# inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgVioleta' 
-            
-            %span.font-1= user_content.get_likes.size
-            -if current_user.liked? user_content
-              -dislike = inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgInverso'
-              =link_to dislike, like_content_user_content_path(@content, user_content, 'unlike'), method: :put 
+            =image_tag "extraterrestre.svg", :class=> "bg-white img w-8 h-8 rounded-full inline-block mx-2"
+          -case user_content.content_type
+            -when 1
+              Duda de
+            -when 2
+              Aporte de 
             -else
-              -like = inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgVioleta'
-              =link_to like, like_content_user_content_path(@content, user_content, 'like'), method: :put 
+              Algo que dijo
 
-          -if current_user == user_content.user
-            %div.text-center= link_to 'Editar', edit_content_user_content_path(@content,user_content), :class => "botonVerde"
-            %div.text-right= link_to 'Borrar', [@content,user_content], method: :delete, data: { confirm: '¿Estás seguro que querés borrar esto?' }, :class => "botonRojo"
+          -unless user_content.user.name == nil
+            = user_content.user.name
+          -else
+            = user_content.user.email
+          -markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+          .md= raw(markdown.render(user_content.markdownContent))
+        
+          .grid.grid-cols-3
+            %div
+              %span=# inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgVioleta' 
+              
+              %span.font-1= user_content.get_likes.size
+              -if current_user.liked? user_content
+                -dislike = inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgInverso'
+                =link_to dislike, like_content_user_content_path(@content, user_content, 'unlike'), method: :put 
+              -else
+                -like = inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgVioleta'
+                =link_to like, like_content_user_content_path(@content, user_content, 'like'), method: :put 
 
-        - if user_content.sticked == true
-          .sticked CONTENIDO FIJADO
+            -if current_user == user_content.user
+              %div.text-center= link_to 'Editar', edit_content_user_content_path(@content,user_content), :class => "botonVerde"
+              %div.text-right= link_to 'Borrar', [@content,user_content], method: :delete, data: { confirm: '¿Estás seguro que querés borrar esto?' }, :class => "botonRojo"
+
+          - if user_content.featured?
+            .sticked CONTENIDO FIJADO
+          -if current_user.permissions.to_i >= 20
+            .sticked ID del contenido: #{user_content.id}
+            .sticked Tus permisos: #{current_user.permissions.to_i}
 
 
-          =# link_to 'Show', content_user_content_path(@content, user_content)
+            =# link_to 'Show', content_user_content_path(@content, user_content)
+      -else
+        -if current_user.permissions.to_i >= 20
+          .bg-red-600.m-2.p-4.rounded-xl
+            - if user_content.responseTo?
+              En respuesta a 
+              = user_content.responseTo
+            -if user_content.user.avatar.attached?        
+              = image_tag user_content.user.avatar, :class => "bg-white img w-8 h-8 rounded-full inline-block mx-2"
+            -else
+              =image_tag "extraterrestre.svg", :class=> "bg-white img w-8 h-8 rounded-full inline-block mx-2"
+            -case user_content.content_type
+              -when 1
+                Duda de
+              -when 2
+                Aporte de 
+              -else
+                Algo que dijo
+
+            -unless user_content.user.name == nil
+              = user_content.user.name
+            -else
+              = user_content.user.email
+            -markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+            .md= raw(markdown.render(user_content.markdownContent))
+          
+            .grid.grid-cols-3
+              %div
+                %span=# inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgVioleta' 
+                
+                %span.font-1= user_content.get_likes.size
+                -if current_user.liked? user_content
+                  -dislike = inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgInverso'
+                  =link_to dislike, like_content_user_content_path(@content, user_content, 'unlike'), method: :put 
+                -else
+                  -like = inline_svg_tag "clap.svg", class: 'w-8 h-8 inline-block svgVioleta'
+                  =link_to like, like_content_user_content_path(@content, user_content, 'like'), method: :put 
+
+              -if current_user == user_content.user
+                %div.text-center= link_to 'Editar', edit_content_user_content_path(@content,user_content), :class => "botonVerde"
+                %div.text-right= link_to 'Borrar', [@content,user_content], method: :delete, data: { confirm: '¿Estás seguro que querés borrar esto?' }, :class => "botonRojo"
+
+            - if user_content.featured?
+              .sticked CONTENIDO FIJADO
+            .sticked ID del contenido: #{user_content.id}
+            .sticked Tus permisos: #{current_user.permissions.to_i}
+
 
 
 
