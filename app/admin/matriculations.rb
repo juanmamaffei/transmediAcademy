@@ -1,5 +1,6 @@
 ActiveAdmin.register Matriculation do
-
+  active_admin_importable
+  permit_params :user, :course, :permissions
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

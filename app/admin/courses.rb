@@ -1,5 +1,6 @@
 ActiveAdmin.register Course do
-
+  active_admin_importable
+  permit_params :name, :description, :category, :price, :goals, :duration, :evaluation, :visibility, :aasm_state
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

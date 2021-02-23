@@ -47,6 +47,7 @@ gem 'acts_as_votable'
 
 gem 'aasm', '~> 5.1', '>= 5.1.1'
 gem 'activeadmin'
+gem "active_admin_importable"
 
 
 gem 'msgpack', '~> 1.4', '>= 1.4.2'

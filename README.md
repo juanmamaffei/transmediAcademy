@@ -1,30 +1,37 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Instrucciones para el deploy
 
-Things you may want to cover:
+### Por primera vez
 
-* Ruby version
+- Instalar rbenv y Ruby 3.0.0
 
-* System dependencies
+- Instalar NodeJS 14 o 15
 
-* Configuration
+- Instalar Nginx y Passenger
 
-* Database creation
+- Instalar Postgres y crear base de dats
 
-* Database initialization
+- Configuraciones
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-https://rubentejera.com/concerns-en-ruby-on-rails/
-
-https://guides.rubyonrails.org/action_text_overview.html
+- Clonar repositorio
 
 
-https://www.mockaroo.com/ DATA GENERATOR
+### Actualizaciones
+
+```
+bundle install
+bundle exec rake assets:precompile RAILS_ENV=production
+bundle exec rake assets:clean
+bundle exec rake db:migrate RAILS_ENV=production
+```
+
+## Active Admin
+
+Para crear el primer usuario de administración, desde la consola,
+
+```
+AdminUser.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
+```
+
+Después, desde la GUI de Active Admin, *BORRAR EL USUARIO Y CREAR UNO NUEVO CON CREDENCIALES SEGURAS*.
