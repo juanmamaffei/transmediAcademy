@@ -60,6 +60,7 @@ group :development, :test do
 end
 
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
+gem 'rexml'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -71,6 +72,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 
   gem 'spring'
+  gem 'pry-rails'
+  gem 'pry'
+  gem 'byebug'
+  #gem 'dotenv-rails'
 end
 
 group :test do
@@ -79,6 +84,11 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'guard-rspec'
+  gem 'rspec-rails'
+  # gem 'vcr'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
