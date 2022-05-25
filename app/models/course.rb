@@ -1,19 +1,15 @@
 class Course < ApplicationRecord
-
-    
-
     has_many :chapters
     has_many :contents, through: :chapters
-
 
     include AASM
     
     aasm do 
-        #Declaramos los estados
+        # States declarations
         state :in_draft, initial: true
         state :published
 
-        #Declaramos los eventos
+        # Events declarations
         event :publish do
             transitions from: :in_draft, to: :published
           end
@@ -23,3 +19,4 @@ class Course < ApplicationRecord
           end
     end
 end
+
