@@ -1,5 +1,5 @@
 class MatriculationsController < ApplicationController
-  before_action :set_matriculation, only: %i[ show edit update destroy ]
+  before_action :set_matriculation, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   before_action :check_god
@@ -10,8 +10,7 @@ class MatriculationsController < ApplicationController
   end
 
   # GET /matriculations/1 or /matriculations/1.json
-  def show
-  end
+  def show; end
 
   # GET /matriculations/new
   def new
@@ -19,8 +18,7 @@ class MatriculationsController < ApplicationController
   end
 
   # GET /matriculations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /matriculations or /matriculations.json
   def create
@@ -30,7 +28,7 @@ class MatriculationsController < ApplicationController
 
     respond_to do |format|
       if @matriculation.save
-        format.html { redirect_to @matriculation, notice: "Matriculation was successfully created." }
+        format.html { redirect_to @matriculation, notice: 'Matriculation was successfully created.' }
         format.json { render :show, status: :created, location: @matriculation }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +41,7 @@ class MatriculationsController < ApplicationController
   def update
     respond_to do |format|
       if @matriculation.update(matriculation_params)
-        format.html { redirect_to @matriculation, notice: "Matriculation was successfully updated." }
+        format.html { redirect_to @matriculation, notice: 'Matriculation was successfully updated.' }
         format.json { render :show, status: :ok, location: @matriculation }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,31 +54,28 @@ class MatriculationsController < ApplicationController
   def destroy
     @matriculation.destroy
     respond_to do |format|
-      format.html { redirect_to matriculations_url, notice: "Matriculation was successfully destroyed." }
+      format.html { redirect_to matriculations_url, notice: 'Matriculation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_matriculation
-      @matriculation = Matriculation.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def matriculation_params
-      params.require(:matriculation).permit(:user_id, :course_id, :permissions)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_matriculation
+    @matriculation = Matriculation.find(params[:id])
+  end
 
-    def check_god
-      
-      unless current_user.permissions == nil
-        unless current_user.permissions >= 50
-          redirect_to root_path, notice: "Naaa. Estás re loco vo, amigo."
-        end
-      else
-          redirect_to root_path, notice: "Pfff... Tomate el palo..."
-      end
-    
+  # Only allow a list of trusted parameters through.
+  def matriculation_params
+    params.require(:matriculation).permit(:user_id, :course_id, :permissions)
+  end
+
+  def check_god
+    if current_user.permissions.nil?
+      redirect_to root_path, notice: 'Pfff... Tomate el palo...'
+    else
+      redirect_to root_path, notice: 'Naaa. Estás re loco vo, amigo.' unless current_user.permissions >= 50
     end
+  end
 end

@@ -1,1 +1,1 @@
-json.partial! "user_contents/user_content", user_content: @user_content
+json.partial! 'user_contents/user_content', user_content: @user_content

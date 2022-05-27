@@ -1,6 +1,7 @@
 ActiveAdmin.register Content do
   active_admin_importable
-  permit_params :course, :chapter, :name, :richcontent, :priority, :testid, :minimumscore, :goals, :typeofcontent, :sequence, :embed, :requirements, :aasm_state
+  permit_params :course, :chapter, :name, :richcontent, :priority, :testid, :minimumscore, :goals, :typeofcontent,
+                :sequence, :embed, :requirements, :aasm_state
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -15,5 +16,4 @@ ActiveAdmin.register Content do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
 end

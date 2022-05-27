@@ -13,5 +13,4 @@ RSpec.describe Lead, type: :model do
     test_case = Lead.new(email: 'a@b.com', name: 'Pepe')
     expect(test_case.save).to eq(true)
   end
-end 
-
+end

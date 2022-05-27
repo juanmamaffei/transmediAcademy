@@ -10,26 +10,25 @@ Rails.application.routes.draw do
   resources :contents do
     resources :user_contents do
       member do
-        put "like" => "user_contents#like"
-        get "fijar" => "user_contents#pinup"
-        get "banear" => "user_contents#ban"
+        put 'like' => 'user_contents#like'
+        get 'fijar' => 'user_contents#pinup'
+        get 'banear' => 'user_contents#ban'
       end
     end
     resources :tests do
-      post "corregir" => "tests#corregir"
+      post 'corregir' => 'tests#corregir'
     end
-    post "points" => "points#consult"
-    get "publicar" => "contents#publish"
-    get "deshabilitar" => "contents#disable"
-  end
-  
-  resources :courses do
-    resources :chapters do
-      get "publicar" => "chapters#publish"
-    end
-    get "publicar" => "courses#publish"
+    post 'points' => 'points#consult'
+    get 'publicar' => 'contents#publish'
+    get 'deshabilitar' => 'contents#disable'
   end
 
+  resources :courses do
+    resources :chapters do
+      get 'publicar' => 'chapters#publish'
+    end
+    get 'publicar' => 'courses#publish'
+  end
 
   devise_for :users
   root 'home#index'

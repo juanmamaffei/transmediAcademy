@@ -5,5 +5,4 @@ class AddStateToModels < ActiveRecord::Migration[6.1]
     add_column :chapters, :aasm_state, :string
     add_column :courses, :aasm_state, :string
   end
-
 end

@@ -28,27 +28,26 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'devise-i18n'
 
-gem "haml-rails", "~> 2.0"
+gem 'haml-rails', '~> 2.0'
 
 gem 'image_processing', '~> 1.2'
 
 gem 'redcarpet'
 # gem 'paperclip' Paperclip is fcking deprecated
 
-gem 'inline_svg'
 gem 'acts_as_votable'
+gem 'inline_svg'
 
-#gem "capistrano"
-#gem "capistrano-rails"
-#gem 'capistrano-rbenv'
-##gem 'capistrano-rvm'
-#gem 'capistrano-passenger', '~> 0.2.0'
-##gem 'capistrano-puma'
+# gem "capistrano"
+# gem "capistrano-rails"
+# gem 'capistrano-rbenv'
+# #gem 'capistrano-rvm'
+# gem 'capistrano-passenger', '~> 0.2.0'
+# #gem 'capistrano-puma'
 
 gem 'aasm', '~> 5.1', '>= 5.1.1'
 gem 'activeadmin'
-gem "active_admin_importable"
-
+gem 'active_admin_importable'
 
 gem 'msgpack', '~> 1.4', '>= 1.4.2'
 # Reduces boot times through caching; required in config/boot.rb
@@ -56,7 +55,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
@@ -67,15 +66,15 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
+  gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 
-  gem 'spring'
-  gem 'pry-rails'
-  gem 'pry'
   gem 'byebug'
-  #gem 'dotenv-rails'
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'spring'
+  # gem 'dotenv-rails'
 end
 
 group :test do
@@ -83,15 +82,15 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'guard-rspec'
   gem 'rspec-rails'
+  gem 'webdrivers'
   # gem 'vcr'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "tailwindcss-rails", "~> 0.3.1"
+gem 'tailwindcss-rails', '~> 0.3.1'

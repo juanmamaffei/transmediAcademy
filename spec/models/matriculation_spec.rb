@@ -16,4 +16,3 @@ RSpec.describe Matriculation, type: :model do
     expect(test.save).to eq(true)
   end
 end
-

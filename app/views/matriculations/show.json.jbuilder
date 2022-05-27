@@ -1,1 +1,1 @@
-json.partial! "matriculations/matriculation", matriculation: @matriculation
+json.partial! 'matriculations/matriculation', matriculation: @matriculation

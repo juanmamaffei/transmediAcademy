@@ -12,4 +12,3 @@ RSpec.describe Course, type: :model do
     expect(course.in_draft?).to eq(true)
   end
 end
-

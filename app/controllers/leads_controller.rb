@@ -1,8 +1,8 @@
 class LeadsController < ApplicationController
-  before_action :set_lead, only: %i[ show edit update destroy ]
+  before_action :set_lead, only: %i[show edit update destroy]
 
-  before_action :authenticate_user!, only: %i[ show index edit update destroy ]
-  before_action :check_god, only: %i[ show index edit update destroy ]
+  before_action :authenticate_user!, only: %i[show index edit update destroy]
+  before_action :check_god, only: %i[show index edit update destroy]
 
   # GET /leads or /leads.json
   def index
@@ -10,16 +10,12 @@ class LeadsController < ApplicationController
   end
 
   # GET /leads/1 or /leads/1.json
-  def show
-  end
+  def show; end
 
   # GET /leads/new
   def new
     @lead = Lead.new
     courses = Course.select(:id, :name).all
-
-
-
 
     @courses = []
     courses.each do |c|
@@ -28,20 +24,17 @@ class LeadsController < ApplicationController
   end
 
   # GET /leads/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /leads or /leads.json
   def create
     @lead = Lead.new(lead_params)
-    
-    if user_signed_in?
-      @lead.user = current_user
-    end
+
+    @lead.user = current_user if user_signed_in?
     @lead.status = 0
     respond_to do |format|
       if @lead.save
-        format.html { redirect_to root_path, notice: "En breve nos vamos a comunicar con vos :-)" }
+        format.html { redirect_to root_path, notice: 'En breve nos vamos a comunicar con vos :-)' }
         format.json { render :show, status: :created, location: @lead }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +47,7 @@ class LeadsController < ApplicationController
   def update
     respond_to do |format|
       if @lead.update(lead_params)
-        format.html { redirect_to @lead, notice: "Lead was successfully updated." }
+        format.html { redirect_to @lead, notice: 'Lead was successfully updated.' }
         format.json { render :show, status: :ok, location: @lead }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,30 +60,28 @@ class LeadsController < ApplicationController
   def destroy
     @lead.destroy
     respond_to do |format|
-      format.html { redirect_to leads_url, notice: "Lead was successfully destroyed." }
+      format.html { redirect_to leads_url, notice: 'Lead was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lead
-      @lead = Lead.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def lead_params
-      params.require(:lead).permit(:user, :status, :course, :name, :email, :info)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lead
+    @lead = Lead.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def lead_params
+    params.require(:lead).permit(:user, :status, :course, :name, :email, :info)
+  end
+
+  def check_god
+    if current_user.permissions.nil?
+      redirect_to root_path, notice: 'Pfff... Tomate el palo...'
+    else
+      redirect_to root_path, notice: 'Naaa. Estás re loco vo, amigo.' unless current_user.permissions >= 50
     end
-    def check_god
-      
-      unless current_user.permissions == nil
-        unless current_user.permissions >= 50
-          redirect_to root_path, notice: "Naaa. Estás re loco vo, amigo."
-        end
-      else
-          redirect_to root_path, notice: "Pfff... Tomate el palo..."
-      end
-    
-    end
+  end
 end

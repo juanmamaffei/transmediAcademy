@@ -1,1 +1,1 @@
-json.array! @matriculations, partial: "matriculations/matriculation", as: :matriculation
+json.array! @matriculations, partial: 'matriculations/matriculation', as: :matriculation

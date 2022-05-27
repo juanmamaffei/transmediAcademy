@@ -21,9 +21,10 @@ class Users::SessionsController < Devise::SessionsController
   # def destroy
   #   super
   # end
-  
+
   # protected
   private
+
   def user_params
     params.require(:user).permit(:name, :email_address, :password, :avatar)
   end

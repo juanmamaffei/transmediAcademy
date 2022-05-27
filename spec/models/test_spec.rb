@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Test, type: :model do
   it 'does not create test if content is not provided' do
-    expect{ Test.create! }.to raise_error(ActiveRecord::RecordInvalid)
+    expect { Test.create! }.to raise_error(ActiveRecord::RecordInvalid)
   end
   it 'creates a test if a valid content is provided' do
     course = Course.create

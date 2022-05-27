@@ -1,1 +1,1 @@
-json.array! @leads, partial: "leads/lead", as: :lead
+json.array! @leads, partial: 'leads/lead', as: :lead

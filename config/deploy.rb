@@ -1,14 +1,14 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.15.0"
+lock '~> 3.15.0'
 
-set :application, "transmediacademy"
-set :repo_url, "git@github.com:juanmamaffei/transmediAcademy.git"
+set :application, 'transmediacademy'
+set :repo_url, 'git@github.com:juanmamaffei/transmediAcademy.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
- set :deploy_to, "/home/deploy/transmediacademy"
+set :deploy_to, '/home/deploy/transmediacademy'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -24,7 +24,8 @@ set :repo_url, "git@github.com:juanmamaffei/transmediAcademy.git"
 # append :linked_files, "config/database.yml"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "vendor/bundle", "./bundle", "public/uploads", "public/packs", "node_modules"
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'vendor/bundle', './bundle',
+       'public/uploads', 'public/packs', 'node_modules'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -33,8 +34,8 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 # set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
- set :keep_releases, 5
+set :keep_releases, 5
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
-Rake::Task["deploy:assets:backup_manifest"].clear_actions
+Rake::Task['deploy:assets:backup_manifest'].clear_actions
